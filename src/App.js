@@ -10,6 +10,7 @@ import { AuthProvider } from './context/AuthContext';
 const LandingPage = lazy(() => import('./components/LandingPage'));
 const Story = lazy(() => import('./components/Story'));
 const Contribute = lazy(() => import('./components/Contribute'));
+const DonationThankYou = lazy(() => import('./components/donate/DonationThankYou'));
 // Contact page - uncomment when ready to use
 // const Contact = lazy(() => import('./components/Contact'));
 const Team = lazy(() => import('./components/Team'));
@@ -47,6 +48,7 @@ function App() {
               <Route path="/story" element={<Story />} />
               <Route path="/events-calender" element={<Calendar />} />
               <Route path="/contribute" element={<Contribute />} />
+              <Route path="/contribute/thank-you" element={<DonationThankYou />} />
               <Route path="/team" element={<Team />} />
 
               {/* Protected Routes - Require Authentication */}
