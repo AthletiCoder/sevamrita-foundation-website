@@ -3,23 +3,55 @@ import PropTypes from 'prop-types';
 import CountUp from 'react-countup';
 import './CSS/stat-card.css';
 
-function StatCard({ title, value, icon, iconBg, index }) {
-  const [liveValue, setLiveValue] = useState(0);
+/**
+ * Formats a stat string into a max-3-digit display value.
+ * Examples: "20,000+" -> 20k+, "250+" -> 250+, "4+" -> 4+
+ */
+function parseStatValue(value) {
+  const hasPlus = String(value).includes('+');
+  const numeric = parseInt(String(value).replace(/\D/g, ''), 10) || 0;
+
+  if (numeric >= 1000) {
+    return {
+      end: Math.round(numeric / 1000),
+      suffix: 'k',
+      hasPlus,
+    };
+  }
+
+  return {
+    end: numeric,
+    suffix: '',
+    hasPlus,
+  };
+}
+
+function StatCard({ title, value, icon, iconBg, index, sectionInView }) {
   const [isInView, setIsInView] = useState(false);
   const cardRef = useRef(null);
+  const { end, suffix, hasPlus } = parseStatValue(value);
 
   useEffect(() => {
+    if (sectionInView) {
+      setIsInView(true);
+    }
+  }, [sectionInView]);
+
+  useEffect(() => {
+    if (isInView) {
+      return undefined;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsInView(true);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
     );
 
     const currentRef = cardRef.current;
-
     if (currentRef) {
       observer.observe(currentRef);
     }
@@ -29,39 +61,34 @@ function StatCard({ title, value, icon, iconBg, index }) {
         observer.unobserve(currentRef);
       }
     };
-  }, []);
-
-  useEffect(() => {
-    if (isInView) {
-      setLiveValue(parseInt(value.replace(/\D/g, ''), 10) || 0);
-    }
-  }, [isInView, value]);
+  }, [isInView]);
 
   return (
-    <div className={`col-xl-2 col-lg-3 col-md-4 col-sm-6 custom-card-width animate-float-delay-${index + 1}`} ref={cardRef}>
-      <div className="card card-stats mb-4 mb-xl-0 border-0">
+    <div className={`stat-card-col animate-float-delay-${index + 1}`} ref={cardRef}>
+      <div className="card card-stats mb-0 border-0">
         <div className="card-body">
-          <div className="row">
-            <div className="col">
+          <div className="stat-card-inner">
+            <div className="stat-card-text">
               <span className="h2 font-weight-bold mb-0">
-                {isInView && (
+                {isInView ? (
                   <span className="count-up text-gradient">
                     <CountUp
                       start={0}
-                      end={liveValue}
+                      end={end}
                       duration={2.5}
-                      separator=","
+                      separator=""
                     />
-                    {value.includes('+') && '+'}
+                    {suffix}
+                    {hasPlus ? '+' : ''}
                   </span>
+                ) : (
+                  <span className="count-up text-gradient">0{suffix}{hasPlus ? '+' : ''}</span>
                 )}
               </span>
               <h5 className="card-title text-uppercase text-muted mb-0">{title}</h5>
             </div>
-            <div className="col-auto">
-              <div className={`icon icon-shape ${iconBg} text-white rounded-circle shadow`}>
-                <i className={icon}></i>
-              </div>
+            <div className={`icon icon-shape ${iconBg} text-white rounded-circle shadow`}>
+              <i className={icon}></i>
             </div>
           </div>
         </div>
@@ -76,24 +103,37 @@ StatCard.propTypes = {
   icon: PropTypes.string.isRequired,
   iconBg: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  sectionInView: PropTypes.bool,
+};
+
+StatCard.defaultProps = {
+  sectionInView: false,
 };
 
 const statCardsData = [
   { title: 'Cities', value: '3', icon: 'fas fa-city', iconBg: 'bg-gradient-info' },
   { title: 'Offices', value: '4+', icon: 'fas fa-building', iconBg: 'bg-gradient-primary' },
   { title: 'Volunteers', value: '250+', icon: 'fas fa-users', iconBg: 'bg-gradient-warning' },
-  { title: 'Meals Distributed', value: '100,000+', icon: 'fas fa-utensils', iconBg: 'bg-gradient-success' },
   { title: 'Lives Impacted', value: '20,000+', icon: 'fas fa-heart', iconBg: 'bg-gradient-danger' }
 ];
 
-function StatCards() {
+function StatCards({ inView = false }) {
   return (
-    <div className="row justify-content-center stat-cards-row">
+    <div className="stat-cards-row">
       {statCardsData.map((card, index) => (
-        <StatCard key={index} index={index} {...card} />
+        <StatCard
+          key={card.title}
+          index={index}
+          sectionInView={inView}
+          {...card}
+        />
       ))}
     </div>
   );
 }
+
+StatCards.propTypes = {
+  inView: PropTypes.bool,
+};
 
 export default StatCards;

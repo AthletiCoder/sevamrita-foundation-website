@@ -6,6 +6,20 @@ import eventService from '../services/eventService';
 import authService from '../services/authService';
 import './CSS/Calendar.css';
 
+const FEATURED_UPCOMING_EVENTS = [
+    {
+        id: 'static-monsoon-awareness-drive',
+        name: 'Monsoon awareness drive',
+        eventDate: '2026-07-26T09:00:00',
+        location: 'Community outreach locations',
+        description:
+            'Join Sevamrita Foundation for a Monsoon awareness drive focused on community preparedness, hygiene, and environmental care during the rainy season. Volunteers will help spread awareness and support local outreach activities.',
+        status: 'APPROVED',
+        photos: ['/images/volunteer.jpg'],
+        isStatic: true,
+    },
+];
+
 const Calendar = () => {
     const [events, setEvents] = useState([]);
     const [selectedEvent, setSelectedEvent] = useState(null);
@@ -55,11 +69,18 @@ const Calendar = () => {
     // Separate events into upcoming and past
     const getUpcomingEvents = () => {
         const now = new Date();
-        return events.filter(event => {
+        const apiUpcoming = events.filter(event => {
             const eventDate = event.eventDate ? new Date(event.eventDate) : new Date(event.createdAt);
             // If it's in the future, it's upcoming (status filtering is handled by backend)
             return eventDate >= now;
         });
+
+        const featured = FEATURED_UPCOMING_EVENTS.filter(event => {
+            const eventDate = new Date(event.eventDate);
+            return eventDate >= now;
+        });
+
+        return [...featured, ...apiUpcoming];
     };
 
     const getPastEvents = () => {

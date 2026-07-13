@@ -1,34 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Navbar, Nav, Container, Button, Dropdown } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from './AuthModal';
+import {
+  HEADER_ACTIONS,
+  EMPTY_VISIBLE_ACTIONS,
+  resolveVisibleHeaderActions,
+  areVisibleActionsEqual,
+  shouldAlwaysShowHeaderActions,
+} from '../modules/header';
 import './CSS/Header.css';
 
 function Header() {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
   const [expanded, setExpanded] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authView, setAuthView] = useState('login');
+  const [visibleActions, setVisibleActions] = useState(EMPTY_VISIBLE_ACTIONS);
+
+  const alwaysShowActions = shouldAlwaysShowHeaderActions(location.pathname);
+
+  const updateHeaderActions = useCallback(() => {
+    const headerEl = document.querySelector('.header');
+    const headerBottom = headerEl ? headerEl.getBoundingClientRect().bottom : 96;
+
+    const next = resolveVisibleHeaderActions({
+      pathname: location.pathname,
+      headerBottom,
+    });
+
+    setVisibleActions((prev) => (areVisibleActionsEqual(prev, next) ? prev : next));
+  }, [location.pathname]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
+    updateHeaderActions();
 
-    window.addEventListener('scroll', handleScroll);
+    if (alwaysShowActions) {
+      return undefined;
+    }
+
+    window.addEventListener('scroll', updateHeaderActions, { passive: true });
+    window.addEventListener('resize', updateHeaderActions);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', updateHeaderActions);
+      window.removeEventListener('resize', updateHeaderActions);
     };
-  }, []);
+  }, [updateHeaderActions, alwaysShowActions]);
 
-  // Listen for custom event to open auth modal
   useEffect(() => {
     const handleOpenAuthModal = (event) => {
       const { view } = event.detail || {};
@@ -44,14 +65,10 @@ function Header() {
     };
   }, []);
 
-  // Check for pending event join after authentication
   useEffect(() => {
     if (isAuthenticated) {
       const pendingEventId = sessionStorage.getItem('pendingEventJoin');
       if (pendingEventId) {
-        // Show a notification or automatically trigger the join
-        // For now, we'll just keep the event ID stored
-        // The Calendar component will handle the actual join when modal reopens
         console.log('Pending event join detected:', pendingEventId);
       }
     }
@@ -83,6 +100,17 @@ function Header() {
     navigate('/');
   };
 
+  const handleHeaderAction = (action) => {
+    setExpanded(false);
+    if (action === 'donate') {
+      navigate('/contribute');
+    } else if (action === 'volunteer') {
+      handleRegisterClick();
+    } else if (action === 'events') {
+      navigate('/events-calender');
+    }
+  };
+
   const getRoleBadgeClass = (role) => {
     switch (role) {
       case 'SUPERUSER':
@@ -96,21 +124,24 @@ function Header() {
     }
   };
 
+  const hasVisibleActions =
+    visibleActions.donation || visibleActions.volunteer || visibleActions.events;
+
   return (
     <>
       <Navbar
         expand="lg"
-        className={`sticky-top header ${isScrolled ? 'scrolled' : ''}`}
+        className={`sticky-top header ${hasVisibleActions ? 'scrolled' : ''}`}
         expanded={expanded}
         aria-label="Main navigation"
       >
         <Container>
           <Navbar.Brand as={NavLink} to="/">
             <img
-              src="/images/sevamrita-without-shadow.png"
-              width="180"
-              height="50"
-              className="d-inline-block align-top"
+              src="/images/sevamrita-text-inline-small.png"
+              width="250"
+              height="80"
+              className="d-inline-block align-top header-logo"
               alt="Sevamrita Foundation Logo"
             />
           </Navbar.Brand>
@@ -118,72 +149,84 @@ function Header() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link as={NavLink} to="/" onClick={handleLinkClick} end>Home</Nav.Link>
-              <Nav.Link as={NavLink} to="/story" onClick={handleLinkClick}>Our Story</Nav.Link>
-              <Nav.Link as={NavLink} to="/whatwedo" onClick={handleLinkClick}>What We Do</Nav.Link>
-              <Nav.Link as={NavLink} to="/events-calender" onClick={handleLinkClick}>Events</Nav.Link>
+              <Nav.Link as={NavLink} to="/team" onClick={handleLinkClick}>Team</Nav.Link>
+              <Nav.Link as={NavLink} to="/story" onClick={handleLinkClick}>Journey</Nav.Link>
+              <Nav.Link as={NavLink} to="/whatwedo" onClick={handleLinkClick}>What we do</Nav.Link>
             </Nav>
-            <Nav className="ms-auto align-items-start align-items-lg-center gap-2">
-              <Nav.Link as={NavLink} to="/contribute" onClick={handleLinkClick}>Contribute</Nav.Link>
-              <Nav.Link as={NavLink} to="/team" onClick={handleLinkClick}>Our Team</Nav.Link>
+
+            <div className="header-right-cluster">
+              <div className={`header-scroll-actions ${hasVisibleActions ? 'is-visible' : ''}`}>
+                {HEADER_ACTIONS.map(({ key, icon, label, shortLabel, action }) => (
+                  <button
+                    key={key}
+                    type="button"
+                    className={`header-action-btn header-action-btn--${key} ${visibleActions[key] ? 'is-visible' : ''}`}
+                    onClick={() => handleHeaderAction(action)}
+                    aria-label={label}
+                    title={label}
+                    tabIndex={visibleActions[key] ? 0 : -1}
+                  >
+                    <i className={icon} aria-hidden="true"></i>
+                    <span className="header-action-label">{shortLabel}</span>
+                  </button>
+                ))}
+              </div>
 
               {isAuthenticated ? (
-                <div className="d-flex align-items-center gap-3 ms-lg-3 mt-2 mt-lg-0">
-                  <Dropdown align="end">
-                    <Dropdown.Toggle variant="outline-primary" className="rounded-pill px-4 d-flex align-items-center gap-2">
-                      <i className="fas fa-user-circle"></i>
-                      <span>{user?.username}</span>
-                      {user?.role && (
-                        <span className={getRoleBadgeClass(user.role)}>
-                          {user.role}
-                        </span>
-                      )}
-                    </Dropdown.Toggle>
+                <Dropdown align="end">
+                  <Dropdown.Toggle variant="outline-primary" className="rounded-pill px-4 d-flex align-items-center gap-2">
+                    <i className="fas fa-user-circle"></i>
+                    <span>{user?.username}</span>
+                    {user?.role && (
+                      <span className={getRoleBadgeClass(user.role)}>
+                        {user.role}
+                      </span>
+                    )}
+                  </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                      <Dropdown.Item as={NavLink} to="/dashboard" onClick={handleLinkClick}>
-                        <i className="fas fa-tachometer-alt me-2"></i>
-                        Dashboard
-                      </Dropdown.Item>
-                      <Dropdown.Item as={NavLink} to="/profile" onClick={handleLinkClick}>
-                        <i className="fas fa-user me-2"></i>
-                        Profile
-                      </Dropdown.Item>
-                      {(user?.role === 'ADMIN' || user?.role === 'SUPERUSER') && (
-                        <>
-                          <Dropdown.Divider />
-                          <Dropdown.Item as={NavLink} to="/admin/users" onClick={handleLinkClick}>
-                            <i className="fas fa-users-cog me-2"></i>
-                            Manage Users
-                          </Dropdown.Item>
-                          <Dropdown.Item as={NavLink} to="/admin/events" onClick={handleLinkClick}>
-                            <i className="fas fa-calendar-plus me-2"></i>
-                            Manage Events
-                          </Dropdown.Item>
-                          <Dropdown.Item as={NavLink} to="/admin/organizations" onClick={handleLinkClick}>
-                            <i className="fas fa-building me-2"></i>
-                            Organization Management
-                          </Dropdown.Item>
-                        </>
-                      )}
-                      <Dropdown.Divider />
-                      <Dropdown.Item onClick={handleLogout} className="text-danger">
-                        <i className="fas fa-sign-out-alt me-2"></i>
-                        Logout
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </div>
+                  <Dropdown.Menu>
+                    <Dropdown.Item as={NavLink} to="/dashboard" onClick={handleLinkClick}>
+                      <i className="fas fa-tachometer-alt me-2"></i>
+                      Dashboard
+                    </Dropdown.Item>
+                    <Dropdown.Item as={NavLink} to="/profile" onClick={handleLinkClick}>
+                      <i className="fas fa-user me-2"></i>
+                      Profile
+                    </Dropdown.Item>
+                    {(user?.role === 'ADMIN' || user?.role === 'SUPERUSER') && (
+                      <>
+                        <Dropdown.Divider />
+                        <Dropdown.Item as={NavLink} to="/admin/users" onClick={handleLinkClick}>
+                          <i className="fas fa-users-cog me-2"></i>
+                          Manage Users
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/admin/events" onClick={handleLinkClick}>
+                          <i className="fas fa-calendar-plus me-2"></i>
+                          Manage Events
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/admin/organizations" onClick={handleLinkClick}>
+                          <i className="fas fa-building me-2"></i>
+                          Organization Management
+                        </Dropdown.Item>
+                      </>
+                    )}
+                    <Dropdown.Divider />
+                    <Dropdown.Item onClick={handleLogout} className="text-danger">
+                      <i className="fas fa-sign-out-alt me-2"></i>
+                      Logout
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               ) : (
-                <div className="d-flex gap-2 ms-lg-3 mt-2 mt-lg-0">
-                  <Button variant="outline-primary" className="rounded-pill px-4" onClick={handleLoginClick}>
-                    Login
-                  </Button>
-                  <Button variant="primary" className="rounded-pill px-4 text-white" onClick={handleRegisterClick}>
-                    Join Us
-                  </Button>
-                </div>
+                <Button
+                  variant="outline-primary"
+                  className="header-login-btn rounded-pill px-4"
+                  onClick={handleLoginClick}
+                >
+                  Log in
+                </Button>
               )}
-            </Nav>
+            </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>

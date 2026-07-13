@@ -25,6 +25,7 @@
     --color-text-primary: #111827;
     --color-text-secondary: #6B7280;
     --color-border: #E5E7EB;
+    --color-pillar-glass: #041C4F;
 
     /* Gradients */
     --gradient-hero: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
@@ -37,8 +38,10 @@
      Typography System
      ========================================= */
 
-    --font-primary: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-primary: 'Outfit', sans-serif;
     --font-accent: 'Outfit', sans-serif;
+    --font-title: 'Finger Paint', cursive;
+    --font-shloka: 'Amita', serif;
 
     --font-size-xs: 0.75rem;
     /* 12px */
