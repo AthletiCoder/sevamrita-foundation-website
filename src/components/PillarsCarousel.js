@@ -32,7 +32,6 @@ function PillarsCarousel({ cards }) {
 
   const [items, setItems] = useState(() => orderWithPreviousFirst(cards));
   const [offset, setOffset] = useState(0);
-  const [step, setStep] = useState(0);
   const [withTransition, setWithTransition] = useState(false);
   const [paused, setPaused] = useState(false);
   // items[0] = left, items[1] = center; updates as soon as a slide starts
@@ -67,7 +66,6 @@ function PillarsCarousel({ cards }) {
     }
 
     stepRef.current = nextStep;
-    setStep(nextStep);
 
     if (!busyRef.current) {
       restingOffsetRef.current = -nextStep;
