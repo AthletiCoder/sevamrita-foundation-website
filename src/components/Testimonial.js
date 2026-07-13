@@ -5,7 +5,6 @@ const Testimonial = () => {
   return (
     <div className="testimonial-section">
       <div className="testimonial-header">
-        <hr className="testimonial-line" />
         <h1 className="testimonial-tag">Testimonials</h1>
       </div>
 

@@ -18,12 +18,20 @@ const EventCard = ({ event, isPast, onViewDetails }) => {
     const volunteersCount = event.volunteersCount || event.volunteers?.length || 0;
     const isApproved = event.status === 'APPROVED';
 
+    const coverPhoto = event.photos && event.photos.length > 0 ? event.photos[0] : null;
+
     return (
         <motion.div
             className={`event-card ${isPast ? 'past-event' : 'upcoming-event'}`}
             whileHover={{ y: -8, scale: 1.02 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
         >
+            {!isPast && coverPhoto && (
+                <div className="event-cover">
+                    <img src={coverPhoto} alt={title} />
+                </div>
+            )}
+
             {/* Event Header */}
             <div className="event-header">
                 <h3 className="event-title">{title}</h3>
@@ -111,7 +119,7 @@ const EventCard = ({ event, isPast, onViewDetails }) => {
                     )}
                 </motion.button>
 
-                {!isPast && isApproved && (
+                {!isPast && isApproved && !event.isStatic && (
                     <motion.button
                         className="btn-register"
                         onClick={onViewDetails}

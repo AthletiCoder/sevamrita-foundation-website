@@ -68,7 +68,17 @@
 
 /* Fix for navbar consistent height */
 .App .navbar {
-    min-height: 70px;
+    min-height: 96px;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+
+@media (max-width: 991px) {
+    .App .navbar {
+        min-height: 76px;
+        padding-top: 0.35rem !important;
+        padding-bottom: 0.35rem !important;
+    }
 }
 
 /* GPU-accelerated fade-in to prevent FOUC (Flash of Unstyled Content) */

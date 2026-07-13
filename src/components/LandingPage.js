@@ -3,47 +3,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import './CSS/LandingPage.css';
-import Card from './Card';
 import StatCards from './StatCards';
 import Testimonial from './Testimonial';
 import AuthModal from './AuthModal';
+import TypewriterTitle from './TypewriterTitle';
+import PillarsCarousel from './PillarsCarousel';
+import { pillarsCards } from '../modules/pillars';
 
 function LandingPage() {
   const navigate = useNavigate();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authView, setAuthView] = useState('login');
-  const cardsData = [
-    {
-      imageSrc: '/images/Shikshamrita.jpg',
-      title: 'Shikshamrita',
-      description: 'Education for the underprivileged'
-    },
-    {
-      imageSrc: '/images/Annamrita.jpg',
-      title: 'Annamrita',
-      description: 'Sanctified Vegetarian Food Distribution for the needy'
-    },
-    {
-      imageSrc: '/images/Charitamrita.jpg',
-      title: 'Charitamrita',
-      description: 'Character development, Time and Stress Management'
-    },
-    {
-      imageSrc: '/images/Dharmamrita.jpg',
-      title: 'Dharamrita',
-      description: 'Working towards a better and cleaner environment'
-    },
-    {
-      imageSrc: '/images/TribalCare.jpg',
-      title: 'Tribal Care',
-      description: 'Cultural preservation and care for tribal people'
-    },
-    {
-      imageSrc: '/images/ThinkTank.jpeg',
-      title: 'Think Tank',
-      description: 'To solve macro problems like air pollution, ground water regeneration'
-    }
-  ];
 
   const { ref: statsRef, inView: statsInView } = useInView({
     triggerOnce: true,
@@ -52,9 +22,9 @@ function LandingPage() {
 
   // Action Cards Data
   const actionCards = [
-    { id: 1, title: "Give Donation", icon: "fas fa-hand-holding-heart", color: "#fec200", delay: 0, path: "/contribute" },
-    { id: 2, title: "Become Volunteer", icon: "fas fa-users", color: "#1ec7fe", delay: 0.2, action: "register" },
-    { id: 3, title: "Join Event", icon: "fas fa-calendar-alt", color: "#e2e3e5", textColor: "black", delay: 0.4, path: "/events-calender" }
+    { id: 1, title: "Join Events", titleLines: ["Join", "Events"], icon: "fas fa-calendar-alt", variant: "events", delay: 0, path: "/events-calender" },
+    { id: 2, title: "Offer Donation", titleLines: ["Offer", "Donation"], icon: "fas fa-hand-holding-heart", variant: "donation", delay: 0.2, path: "/contribute" },
+    { id: 3, title: "Become Volunteer", titleLines: ["Become", "Volunteer"], icon: "fas fa-users", variant: "volunteer", delay: 0.4, action: "register" },
   ];
 
   // Handle action card clicks
@@ -65,6 +35,18 @@ function LandingPage() {
     } else if (card.path) {
       navigate(card.path);
     }
+  };
+
+  const handleScrollToPillars = () => {
+    const section = document.getElementById('our-pillars');
+    if (!section) {
+      return;
+    }
+
+    const headerEl = document.querySelector('.header');
+    const headerOffset = headerEl ? headerEl.getBoundingClientRect().height : 80;
+    const top = section.getBoundingClientRect().top + window.scrollY - headerOffset - 8;
+    window.scrollTo({ top, behavior: 'smooth' });
   };
 
   return (
@@ -80,24 +62,28 @@ function LandingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <h1 className="hero-title-modern">
-                  Welcome to <br />
-                  <span className="highlight">Sevamrita</span> Foundation
-                </h1>
+                <TypewriterTitle
+                  text="Welcome!"
+                  className="hero-title-modern"
+                />
                 <h2 className="hero-subtitle-modern">
-                  Make life meaningful by "Seva" or service for the benefit of others
+                सेवा परमो धर्मः
                 </h2>
-                <p className="hero-description-modern">
-                  Sevamrita is a non-profit organization formed by a group of IIT-Bombay Alumni. We are focused on bringing about change in society through "seva" or service by which people can experience the bliss (amrita).
+                <p className="hero-motto-modern">
+                  sevā paramo dharmaḥ
                 </p>
-                <div className="hero-cta-group">
-                  <Link to="/contribute" className="btn-modern-primary hover-lift">
-                    Make a Difference
-                  </Link>
-                  <Link to="/whatwedo" className="btn-modern-outline hover-lift">
-                    Learn More
-                  </Link>
-                </div>
+                <p className="hero-description-modern">
+                  Sevamrita, a non-profit formed by IIT-Bombay alumni,
+                  <span className="hero-description-line2"> stands for transformation brought about by rendering selfless service (sevā)</span>
+                </p>
+                <button
+                  type="button"
+                  className="what-we-do-scroll what-we-do-scroll--desktop"
+                  onClick={handleScrollToPillars}
+                >
+                  <span>Know more</span>
+                  <i className="fas fa-chevron-down" aria-hidden="true"></i>
+                </button>
               </motion.div>
             </div>
 
@@ -107,8 +93,7 @@ function LandingPage() {
                 {actionCards.map((card) => (
                   <motion.div
                     key={card.id}
-                    className="action-card"
-                    style={{ backgroundColor: card.color, cursor: 'pointer' }}
+                    className={`action-card action-card--${card.variant}`}
                     initial={{ x: 100, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{
@@ -117,14 +102,17 @@ function LandingPage() {
                       type: "spring",
                       stiffness: 100
                     }}
-                    whileHover={{ scale: 1.05, x: -10 }}
                     onClick={() => handleActionCardClick(card)}
                   >
-                    <div className="action-icon" style={{ color: card.textColor }}>
+                    <div className="action-icon">
                       <i className={card.icon}></i>
                     </div>
-                    <span className="action-title" style={{ color: card.textColor }}>{card.title}</span>
-                    <div className="action-arrow" style={{ color: card.textColor }}>
+                    <span className="action-title">
+                      {card.titleLines.map((line) => (
+                        <span key={line} className="action-title-line">{line}</span>
+                      ))}
+                    </span>
+                    <div className="action-arrow">
                       <i className="fas fa-arrow-right"></i>
                     </div>
                   </motion.div>
@@ -132,6 +120,15 @@ function LandingPage() {
               </div>
             </div>
           </div>
+
+          <button
+            type="button"
+            className="what-we-do-scroll what-we-do-scroll--mobile"
+            onClick={handleScrollToPillars}
+          >
+            <span>Know more</span>
+            <i className="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
         </div>
       </section>
 
@@ -143,25 +140,16 @@ function LandingPage() {
       </section>
 
       {/* Pillars Section */}
-      <section className="pillars-section section-padding">
+      <section id="our-pillars" className="pillars-section section-padding">
         <div className="container-custom">
-          <div className="section-header">
-            <h2 className="section-title">Our Pillars of Service</h2>
+          <div className="section-header pillars-section-header">
+            <h2 className="section-title">Six Pillars of Service</h2>
             <p className="section-description">
               Dedicated initiatives focusing on holistic development and support for the underprivileged.
             </p>
           </div>
 
-          <div className="pillars-grid">
-            {cardsData.map((card, index) => (
-              <Card
-                key={index}
-                imageSrc={card.imageSrc}
-                title={card.title}
-                description={card.description}
-              />
-            ))}
-          </div>
+          <PillarsCarousel cards={pillarsCards} />
 
           <div className="text-center mt-12">
             <Link to="/whatwedo" className="btn-modern-outline hover-lift">

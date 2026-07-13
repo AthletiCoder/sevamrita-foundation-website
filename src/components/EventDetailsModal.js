@@ -193,10 +193,10 @@ const EventDetailsModal = ({ show, onHide, event, onEventUpdate }) => {
                         )}
                     </div>
 
-                    {/* Photo Gallery for Past Events */}
-                    {isPast && event.photos && event.photos.length > 0 && (
+                    {/* Photo Gallery */}
+                    {event.photos && event.photos.length > 0 && (
                         <div className="photo-gallery-section">
-                            <h4><i className="fas fa-images"></i> Event Gallery</h4>
+                            <h4><i className="fas fa-images"></i> {isPast ? 'Event Gallery' : 'Event Photo'}</h4>
                             <div className="photo-gallery-grid">
                                 {event.photos.map((photo, index) => (
                                     <div
@@ -233,7 +233,7 @@ const EventDetailsModal = ({ show, onHide, event, onEventUpdate }) => {
                     {/* Action Buttons */}
                     <div className="event-modal-actions">
                         {/* Join Event Button (for approved upcoming events, all users except admins) */}
-                        {!isPast && isApproved && !isAdmin && (
+                        {!isPast && isApproved && !isAdmin && !event.isStatic && (
                             <button
                                 className="btn-join-event"
                                 onClick={handleJoinEvent}
