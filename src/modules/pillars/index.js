@@ -1,0 +1,1 @@
+export { pillarsCards } from './data';
