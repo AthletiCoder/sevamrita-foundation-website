@@ -59,11 +59,55 @@ Track these on the ERPNext side when switching envs:
 
 ---
 
+## Before deploying to production (Vercel)
+
+Use this every time you promote `payment-gateway` (or main) to prod.
+
+### 1. Code / git
+- [ ] Branch builds cleanly: `CI=true npm run build`
+- [ ] Merged latest `main` (no open conflicts)
+- [ ] Pushed the branch Vercel deploys from
+- [ ] Smoke-test locally once more: home, contribute donate modal, thank-you route
+
+### 2. Vercel env (Settings → Environment Variables → Production)
+- [ ] `REACT_APP_ERPNEXT_URL` = live ERPNext HTTPS URL (**no trailing slash**)
+- [ ] `REACT_APP_ENV` = `production`
+- [ ] `REACT_APP_API_BASE_URL` = live Java API if login/dashboard still used; otherwise leave or remove knowingly
+- [ ] Redeploy after changing any `REACT_APP_*` (values are baked in at build time)
+
+### 3. ERPNext (prod site)
+- [ ] Cashfree Settings: **production** App ID + Secret, env = `production`
+- [ ] Allowed Origins includes exact Vercel URL(s), e.g. `https://your-app.vercel.app` and custom domain if any
+- [ ] Return URL base points at prod thank-you, with placeholders:  
+  `https://<prod-site>/contribute/thank-you?donation_id={donation_id}&order_id={order_id}&status_token={status_token}`
+- [ ] `site_config` CORS / `allow_cors` includes the same React origin(s)
+- [ ] Company, Mode of Payment, Paid To (Cashfree Clearing) set per accounting checklist
+
+### 4. Cashfree dashboard (production)
+- [ ] Webhook URL =  
+  `https://<prod-erpnext>/api/method/volunteering.volunteering.api.donations.cashfree_webhook`
+- [ ] Webhook events for payment success/failure enabled
+- [ ] Return / notify URLs match ERPNext Cashfree Settings
+
+### 5. Go-live test (small real or approved test txn)
+- [ ] Open prod `/contribute` → donate → Cashfree checkout opens (`environment` should be production)
+- [ ] Complete payment → status becomes Success (webhook or poll)
+- [ ] `/contribute/thank-you?donation_id=...&status_token=...` shows receipt
+- [ ] Donation + Payment Entry (or your accounting docs) appear in ERPNext
+- [ ] Failure/cancel path shows Failed / pending correctly (no false Success)
+
+### 6. After deploy
+- [ ] Log the prod URLs + date in the Change log below
+- [ ] Confirm `.env` on laptop still points at **local** ERPNext (do not overwrite with prod secrets in git)
+
+---
+
 ## Change log
 
 | Date | What changed |
 |------|----------------|
 | 2026-07-11 | Donate flow live against local ERPNext; CORS set; local `.env` with `REACT_APP_ERPNEXT_URL=http://sevamrita.local:8000`. |
+| 2026-07-13 | Merged main into `payment-gateway`; CI unused-var fix; Vercel build green. |
 | | |
 
 Add a row whenever you change URLs, CORS, Cashfree env, or Vercel vars.
