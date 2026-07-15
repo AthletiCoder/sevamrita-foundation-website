@@ -167,11 +167,10 @@ function DonationForm() {
         </p>
         {result.want_80g ? (
           <p className="muted">
-            You requested an 80G acknowledgement. Formal Form 10BE is issued after
-            annual Form 10BD filing. A confirmation email will be sent if configured.
+            An 80G receipt will be sent on the WhatsApp number you provided..
           </p>
         ) : (
-          <p className="muted">A confirmation email will be sent if configured.</p>
+          <p className="muted">A confirmation message will be sent on the WhatsApp number you provided.</p>
         )}
         <button type="button" className="btn-donate-submit" onClick={() => setStep('form')}>
           Donate again
@@ -216,7 +215,12 @@ function DonationForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="donation-form" noValidate>
+    <>
+      <div className="donation-card-header">
+        <h3>Make a Donation</h3>
+        <h6>Secure online payment · Min ₹100</h6>
+      </div>
+      <form onSubmit={handleSubmit} className="donation-form" noValidate>
       {errorMessage && (
         <div className="alert alert-danger" role="alert">
           {errorMessage}
@@ -375,7 +379,8 @@ function DonationForm() {
           </>
         )}
       </button>
-    </form>
+      </form>
+    </>
   );
 }
 
