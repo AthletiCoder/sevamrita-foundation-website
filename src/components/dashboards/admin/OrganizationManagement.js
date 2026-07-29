@@ -246,7 +246,7 @@ const OrganizationManagement = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <i className="fas fa-sitemap"></i> Organization <span className="highlight">Management</span>
+                        <i className="fas fa-sitemap"></i> Organization Management
                     </motion.h1>
                     <motion.p
                         className="page-subtitle"

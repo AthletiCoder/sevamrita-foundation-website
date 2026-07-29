@@ -13,7 +13,7 @@ function Contribute() {
       <section className="page-hero">
         <div className="page-hero-content">
           <h1 className="page-title">
-            <span className="highlight">Contribute</span> to Sevamrita
+            Contribute to Sevamrita
           </h1>
           <p className="page-subtitle">
             Your contributions help us bring meaningful change to society. Whether it&apos;s

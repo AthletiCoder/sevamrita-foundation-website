@@ -26,8 +26,8 @@ function parseStatValue(value) {
   };
 }
 
-function StatCard({ title, value, icon, iconBg, index, sectionInView }) {
-  const [isInView, setIsInView] = useState(false);
+function StatCard({ title, value, icon, iconBg, index, sectionInView, animate }) {
+  const [isInView, setIsInView] = useState(!animate);
   const cardRef = useRef(null);
   const { end, suffix, hasPlus } = parseStatValue(value);
 
@@ -38,7 +38,7 @@ function StatCard({ title, value, icon, iconBg, index, sectionInView }) {
   }, [sectionInView]);
 
   useEffect(() => {
-    if (isInView) {
+    if (isInView || !animate) {
       return undefined;
     }
 
@@ -61,7 +61,7 @@ function StatCard({ title, value, icon, iconBg, index, sectionInView }) {
         observer.unobserve(currentRef);
       }
     };
-  }, [isInView]);
+  }, [isInView, animate]);
 
   return (
     <div className={`stat-card-col animate-float-delay-${index + 1}`} ref={cardRef}>
@@ -72,12 +72,16 @@ function StatCard({ title, value, icon, iconBg, index, sectionInView }) {
               <span className="h2 font-weight-bold mb-0">
                 {isInView ? (
                   <span className="count-up text-gradient">
-                    <CountUp
-                      start={0}
-                      end={end}
-                      duration={2.5}
-                      separator=""
-                    />
+                    {animate ? (
+                      <CountUp
+                        start={0}
+                        end={end}
+                        duration={2.5}
+                        separator=""
+                      />
+                    ) : (
+                      end
+                    )}
                     {suffix}
                     {hasPlus ? '+' : ''}
                   </span>
@@ -104,20 +108,22 @@ StatCard.propTypes = {
   iconBg: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   sectionInView: PropTypes.bool,
+  animate: PropTypes.bool,
 };
 
 StatCard.defaultProps = {
   sectionInView: false,
+  animate: true,
 };
 
 const statCardsData = [
-  { title: 'Cities', value: '3', icon: 'fas fa-city', iconBg: 'bg-gradient-info' },
-  { title: 'Offices', value: '4+', icon: 'fas fa-building', iconBg: 'bg-gradient-primary' },
-  { title: 'Volunteers', value: '250+', icon: 'fas fa-users', iconBg: 'bg-gradient-warning' },
-  { title: 'Lives Impacted', value: '20,000+', icon: 'fas fa-heart', iconBg: 'bg-gradient-danger' }
+  { title: 'Cities', value: '4', icon: 'fas fa-city', iconBg: 'bg-gradient-info' },
+  { title: 'Offices', value: '5+', icon: 'fas fa-building', iconBg: 'bg-gradient-primary' },
+  { title: 'Volunteers', value: '300+', icon: 'fas fa-users', iconBg: 'bg-gradient-warning' },
+  { title: 'Lives Impacted', value: '25,000+', icon: 'fas fa-heart', iconBg: 'bg-gradient-danger' }
 ];
 
-function StatCards({ inView = false }) {
+function StatCards({ inView = false, animate = true }) {
   return (
     <div className="stat-cards-row">
       {statCardsData.map((card, index) => (
@@ -125,6 +131,7 @@ function StatCards({ inView = false }) {
           key={card.title}
           index={index}
           sectionInView={inView}
+          animate={animate}
           {...card}
         />
       ))}
@@ -134,6 +141,7 @@ function StatCards({ inView = false }) {
 
 StatCards.propTypes = {
   inView: PropTypes.bool,
+  animate: PropTypes.bool,
 };
 
 export default StatCards;

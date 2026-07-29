@@ -22,6 +22,7 @@
     --color-background: #F9FAFB;
     /* Cool Gray */
     --color-surface: #FFFFFF;
+    --color-landing-background: #f8f7f1;
     --color-text-primary: #111827;
     --color-text-secondary: #6B7280;
     --color-border: #E5E7EB;
@@ -38,8 +39,8 @@
      Typography System
      ========================================= */
 
-    --font-primary: 'Outfit', sans-serif;
-    --font-accent: 'Outfit', sans-serif;
+    --font-primary: 'Poppins', sans-serif;
+    --font-accent: 'Poppins', sans-serif;
     --font-title: 'Finger Paint', cursive;
     --font-shloka: 'Amita', serif;
 
@@ -115,4 +116,171 @@
     --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* =========================================
+     Landing / Action Card Palette
+     Semantic tokens so the landing page never hardcodes colors
+     ========================================= */
+
+    /* Events (amber) */
+    --color-events: #CA8A04;
+    --color-events-text: #713F12;
+    --color-events-surface: rgba(202, 138, 4, 0.3);
+    --color-events-surface-hover: rgba(202, 138, 4, 0.45);
+    --color-events-glow: rgba(202, 138, 4, 0.55);
+
+    /* Donation (red) */
+    --color-donation: #DC2626;
+    --color-donation-text: #7F1D1D;
+    --color-donation-surface: rgba(220, 38, 38, 0.28);
+    --color-donation-surface-hover: rgba(220, 38, 38, 0.42);
+    --color-donation-glow: rgba(220, 38, 38, 0.5);
+
+    /* Volunteer (blue) */
+    --color-volunteer: #1D4ED8;
+    --color-volunteer-text: #1E3A8A;
+    --color-volunteer-surface: rgba(29, 78, 216, 0.28);
+    --color-volunteer-surface-hover: rgba(29, 78, 216, 0.42);
+    --color-volunteer-glow: rgba(29, 78, 216, 0.5);
+
+    /* =========================================
+     Glass & Overlay Surfaces
+     ========================================= */
+
+    --overlay-hero: rgba(255, 255, 255, 0.45);
+    --glass-surface: rgba(255, 255, 255, 0.5);
+    --glass-surface-strong: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.35);
+    --glass-icon: rgba(255, 255, 255, 0.45);
+    --glass-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+
+    /* Header / chrome surfaces */
+    --header-bg: rgba(255, 255, 255, 0.68);
+    --header-bg-scrolled: rgba(255, 255, 255, 0.8);
+    --header-blur: 20px;
+    --header-border: rgba(255, 255, 255, 0.2);
+    --header-menu-bg: rgba(255, 255, 255, 0.98);
+    --header-collapse-bg: #ffffff;
+    --header-action-donation-bg: rgba(239, 68, 68, 0.22);
+    --header-action-donation-color: #991b1b;
+    --header-action-donation-border: rgba(239, 68, 68, 0.35);
+    --header-action-donation-hover-bg: rgba(239, 68, 68, 0.32);
+    --header-action-donation-glow: rgba(239, 68, 68, 0.45);
+    --header-action-volunteer-bg: rgba(37, 99, 235, 0.22);
+    --header-action-volunteer-color: #1e3a8a;
+    --header-action-volunteer-border: rgba(37, 99, 235, 0.35);
+    --header-action-volunteer-hover-bg: rgba(37, 99, 235, 0.32);
+    --header-action-volunteer-glow: rgba(37, 99, 235, 0.45);
+    --header-action-events-bg: rgba(234, 179, 8, 0.28);
+    --header-action-events-color: #854d0e;
+    --header-action-events-border: rgba(234, 179, 8, 0.4);
+    --header-action-events-hover-bg: rgba(234, 179, 8, 0.38);
+    --header-action-events-glow: rgba(234, 179, 8, 0.5);
+
+    /* Theme toggle */
+    --theme-toggle-color: var(--color-text-secondary);
+    --theme-toggle-hover-bg: rgba(107, 114, 128, 0.12);
+
+    --image-brightness: 1;
+    --image-contrast: 1;
+}
+
+/* =========================================
+   Dark Theme
+   ========================================= */
+
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    --color-primary: #F1E9D6;
+    --color-primary-dark: #E5D9BC;
+    --color-primary-light: #3A3428;
+
+    --color-accent: #FBBF24;
+    --color-accent-dark: #F59E0B;
+    --color-success: #34D399;
+
+    --color-background: #0B1220;
+    --color-surface: #111827;
+    --color-landing-background: var(--color-background);
+    --color-text-primary: #F3F4F6;
+    --color-text-secondary: #9CA3AF;
+    --color-border: #1F2937;
+    --color-pillar-glass: #0A254F;
+
+    --gradient-hero: linear-gradient(135deg, #0B1220 0%, #111827 100%);
+    --gradient-card-hover: linear-gradient(135deg, #FBBF24 0%, #F87171 100%);
+    --gradient-success: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+    --gradient-dark: linear-gradient(135deg, #0F172A 0%, #020617 100%);
+    --gradient-primary: linear-gradient(135deg, #F1E9D6 0%, #E5D9BC 100%);
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.45), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.35);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.55), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+    --shadow-color: 0 4px 20px rgba(241, 233, 214, 0.2);
+
+    --color-events: #EAB308;
+    --color-events-text: #FDE68A;
+    --color-events-surface: rgba(234, 179, 8, 0.34);
+    --color-events-surface-hover: rgba(234, 179, 8, 0.48);
+    --color-events-glow: rgba(234, 179, 8, 0.45);
+
+    --color-donation: #F87171;
+    --color-donation-text: #FECACA;
+    --color-donation-surface: rgba(248, 113, 113, 0.34);
+    --color-donation-surface-hover: rgba(248, 113, 113, 0.48);
+    --color-donation-glow: rgba(248, 113, 113, 0.45);
+
+    --color-volunteer: #3B82F6;
+    --color-volunteer-text: #BFDBFE;
+    --color-volunteer-surface: rgba(59, 130, 246, 0.34);
+    --color-volunteer-surface-hover: rgba(59, 130, 246, 0.48);
+    --color-volunteer-glow: rgba(59, 130, 246, 0.45);
+
+    --overlay-hero: rgba(0, 0, 0, 0.45);
+    --glass-surface: rgba(17, 24, 39, 0.55);
+    --glass-surface-strong: rgba(17, 24, 39, 0.78);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-icon: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+
+    --header-bg: rgba(17, 24, 39, 0.68);
+    --header-bg-scrolled: rgba(17, 24, 39, 0.8);
+    --header-blur: 20px;
+    --header-border: rgba(255, 255, 255, 0.08);
+    --header-menu-bg: rgba(17, 24, 39, 0.98);
+    --header-collapse-bg: #111827;
+    --header-action-donation-bg: rgba(248, 113, 113, 0.22);
+    --header-action-donation-color: #FECACA;
+    --header-action-donation-border: rgba(248, 113, 113, 0.4);
+    --header-action-donation-hover-bg: rgba(248, 113, 113, 0.32);
+    --header-action-donation-glow: rgba(248, 113, 113, 0.45);
+    --header-action-volunteer-bg: rgba(96, 165, 250, 0.22);
+    --header-action-volunteer-color: #BFDBFE;
+    --header-action-volunteer-border: rgba(96, 165, 250, 0.4);
+    --header-action-volunteer-hover-bg: rgba(96, 165, 250, 0.32);
+    --header-action-volunteer-glow: rgba(96, 165, 250, 0.45);
+    --header-action-events-bg: rgba(234, 179, 8, 0.24);
+    --header-action-events-color: #FDE68A;
+    --header-action-events-border: rgba(234, 179, 8, 0.45);
+    --header-action-events-hover-bg: rgba(234, 179, 8, 0.34);
+    --header-action-events-glow: rgba(234, 179, 8, 0.5);
+
+    --theme-toggle-color: var(--color-text-secondary);
+    --theme-toggle-hover-bg: rgba(156, 163, 175, 0.15);
+
+    /* Soften photos/graphics against dark surfaces */
+    --image-brightness: 0.9;
+    --image-contrast: 1.08;
+
+    /* Bootstrap variable bridges for dark surfaces */
+    --bs-body-bg: var(--color-background);
+    --bs-body-color: var(--color-text-primary);
+    --bs-border-color: var(--color-border);
+    --bs-secondary-color: var(--color-text-secondary);
+    --bs-tertiary-bg: var(--color-surface);
+    --bs-emphasis-color: var(--color-text-primary);
+    --bs-primary: #F1E9D6;
+    --bs-primary-rgb: 241, 233, 214;
 }

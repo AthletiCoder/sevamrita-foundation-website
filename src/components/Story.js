@@ -21,7 +21,7 @@ function Story() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            Our Journey: The Making of <span className="highlight">Sevamrita</span>
+            Our Journey: The Making of Sevamrita
           </motion.h1>
           <p className="page-subtitle">
             From humble beginnings to making a lasting impact in communities across India.

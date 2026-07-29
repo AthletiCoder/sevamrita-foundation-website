@@ -1,5 +1,5 @@
 /* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Finger+Paint&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Finger+Paint&family=Poppins:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 /* Design System Imports */
 @import './styles/tokens.css';
@@ -28,8 +28,8 @@
 }
 
 /* Reset Bootstrap margins on headings */
-.App h1:not(.hero-title-modern),
-.App h2:not(.hero-subtitle-modern),
+.App h1:not(.hero-title-modern):not(.page-title),
+.App h2,
 .App h3,
 .App h4,
 .App h5,
@@ -40,13 +40,10 @@
   line-height: 1.3 !important;
 }
 
-.App .hero-modern-section h1.hero-title-modern {
-  font-family: 'Finger Paint', cursive !important;
-}
-
-.App .hero-modern-section h2.hero-subtitle-modern {
-  font-family: 'Amita', serif !important;
-  font-weight: 400 !important;
+.App .hero-modern-section h1.hero-title-modern,
+.App h1.page-title {
+  font-family: var(--font-title) !important;
+  font-weight: 700 !important;
 }
 
 /* Override Bootstrap paragraph margins */
@@ -92,6 +89,107 @@ body {
   color: var(--color-text-primary);
   line-height: 1.6;
   font-size: 16px;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Bootstrap / shared chrome adjustments for dark theme */
+[data-theme="dark"] .dropdown-menu {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .dropdown-item {
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .dropdown-item:hover,
+[data-theme="dark"] .dropdown-item:focus {
+  background-color: var(--color-background);
+  color: var(--color-primary);
+}
+
+[data-theme="dark"] .dropdown-divider {
+  border-top-color: var(--color-border);
+}
+
+[data-theme="dark"] .modal-content {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .modal-header,
+[data-theme="dark"] .modal-footer {
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .card {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .btn-primary,
+[data-theme="dark"] .btn-info {
+  background: #F1E9D6 !important;
+  color: #0B1220 !important;
+  box-shadow: 0 4px 12px rgba(241, 233, 214, 0.2) !important;
+}
+
+[data-theme="dark"] .btn-primary:hover,
+[data-theme="dark"] .btn-primary:focus,
+[data-theme="dark"] .btn-primary:active,
+[data-theme="dark"] .btn-info:hover,
+[data-theme="dark"] .btn-info:focus,
+[data-theme="dark"] .btn-info:active {
+  background: #E5D9BC !important;
+  color: #0B1220 !important;
+  box-shadow: 0 8px 20px rgba(241, 233, 214, 0.3) !important;
+}
+
+[data-theme="dark"] .btn-primary:focus,
+[data-theme="dark"] .btn-info:focus {
+  box-shadow: 0 0 0 4px rgba(241, 233, 214, 0.25) !important;
+}
+
+[data-theme="dark"] .btn-outline-primary {
+  border-color: #F1E9D6 !important;
+  color: #F1E9D6 !important;
+  background: transparent !important;
+}
+
+[data-theme="dark"] .btn-outline-primary:hover,
+[data-theme="dark"] .btn-outline-primary:focus,
+[data-theme="dark"] .btn-outline-primary:active {
+  background: #F1E9D6 !important;
+  border-color: #F1E9D6 !important;
+  color: #0B1220 !important;
+  box-shadow: 0 8px 20px rgba(241, 233, 214, 0.25) !important;
+}
+
+[data-theme="dark"] .btn-light,
+[data-theme="dark"] .btn-link {
+  color: #F1E9D6 !important;
+}
+
+[data-theme="dark"] .btn-light:hover,
+[data-theme="dark"] .btn-link:hover {
+  color: #E5D9BC !important;
+}
+
+[data-theme="dark"] .navbar-toggler-icon {
+  filter: invert(1) brightness(1.4);
 }
 
 h1,
@@ -154,6 +252,7 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+  filter: brightness(var(--image-brightness, 1)) contrast(var(--image-contrast, 1));
 }
 
 button {

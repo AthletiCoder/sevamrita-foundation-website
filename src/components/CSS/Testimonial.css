@@ -1,84 +1,40 @@
-/* Testimonial Section Styles */
+/* Testimonials page */
+
 .testimonial-section {
   padding: var(--spacing-3xl) var(--spacing-md);
   background: var(--color-surface);
   text-align: center;
-  position: relative;
 }
 
-.testimonial-header {
-  margin-bottom: var(--spacing-2xl);
-  position: relative;
-  display: inline-block;
-}
-
-.testimonial-tag {
-  font-family: var(--font-accent);
-  color: var(--color-primary-dark);
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 0;
-  position: relative;
-  z-index: 1;
-}
-
-.testimonial-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-3xl);
-  max-width: 1000px;
-  margin: 0 auto;
+.testimonial-video-section {
+  padding: 0 var(--spacing-md) var(--spacing-3xl);
   background: var(--color-surface);
-  padding: var(--spacing-2xl);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
-  text-align: left;
 }
 
-.video-container {
-  flex: 1;
-  max-width: 400px;
+.testimonial-video-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.testimonial-video-title {
+  font-family: var(--font-accent);
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-xl);
+}
+
+.testimonial-video-frame {
+  width: 100%;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+  background: var(--color-background);
 }
 
-.video-player {
-  width: 100%;
+.testimonial-video-player {
   display: block;
-  border-radius: var(--radius-lg);
-}
-
-.testimonial-text-container {
-  flex: 1;
-}
-
-.quote-icon {
-  font-size: 3rem;
-  color: var(--color-primary);
-  opacity: 0.2;
-  margin-bottom: var(--spacing-sm);
-}
-
-.testimonial-description {
-  font-size: var(--font-size-lg);
-  line-height: 1.8;
-  color: var(--color-text-secondary);
-  font-style: italic;
-  margin-bottom: var(--spacing-lg);
-}
-
-.testimonial-author {
-  font-weight: 600;
-  color: var(--color-text-primary);
-  font-family: var(--font-accent);
-}
-
-@media (max-width: 768px) {
-  .testimonial-content {
-    flex-direction: column;
-    text-align: center;
-    padding: var(--spacing-lg);
-  }
+  width: 100%;
+  max-height: 70vh;
+  background: #000;
 }

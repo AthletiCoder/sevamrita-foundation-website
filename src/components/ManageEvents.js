@@ -322,7 +322,7 @@ const ManageEvents = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <i className="fas fa-calendar-alt"></i> Event <span className="highlight">Management</span>
+                        <i className="fas fa-calendar-alt"></i> Event Management
                     </motion.h1>
                     <motion.p
                         className="page-subtitle"

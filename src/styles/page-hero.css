@@ -16,26 +16,14 @@
     padding: 0 var(--spacing-md);
 }
 
-/* Unified Page Title */
+/* Unified Page Title — matches hero title (Finger Paint) */
 .page-title {
-    font-family: var(--font-accent);
+    font-family: var(--font-title);
     font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-weight: 800;
+    font-weight: 700;
     color: var(--color-text-primary);
     margin-bottom: var(--spacing-lg);
     line-height: 1.2;
-}
-
-/* The blue highlight box used across all pages - !important ensures this is the default */
-.highlight {
-    background-color: var(--color-primary-light) !important;
-    padding: 0 0.5rem !important;
-    display: inline-block !important;
-    color: var(--color-text-primary) !important;
-    /* Reset any gradient text effects that may leak from other pages */
-    -webkit-background-clip: initial !important;
-    -webkit-text-fill-color: initial !important;
-    background-clip: initial !important;
 }
 
 /* Page Subtitle */

@@ -153,7 +153,7 @@ const ManageUsers = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <i className="fas fa-users-cog"></i> User <span className="highlight">Management</span>
+                        <i className="fas fa-users-cog"></i> User Management
                     </motion.h1>
                     <motion.p
                         className="page-subtitle"

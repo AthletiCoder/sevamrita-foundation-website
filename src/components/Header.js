@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { Navbar, Nav, Container, Button, Dropdown } from 'react-bootstrap';
+import { Navbar, Container, Button, Dropdown } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
 import AuthModal from './AuthModal';
+import HeaderNav from './HeaderNav';
+import ThemeToggle from './ThemeToggle';
 import {
   HEADER_ACTIONS,
   EMPTY_VISIBLE_ACTIONS,
@@ -103,6 +105,10 @@ function Header() {
   const handleHeaderAction = (action) => {
     setExpanded(false);
     if (action === 'donate') {
+      // Clear home hash so Back from donate lands at top
+      if (location.pathname === '/' && location.hash) {
+        navigate({ pathname: '/', hash: '' }, { replace: true });
+      }
       navigate('/contribute');
     } else if (action === 'volunteer') {
       handleRegisterClick();
@@ -141,18 +147,23 @@ function Header() {
               src="/images/sevamrita-text-inline-small.png"
               width="250"
               height="80"
-              className="d-inline-block align-top header-logo"
+              className="d-inline-block align-top header-logo header-logo--light"
+              alt="Sevamrita Foundation Logo"
+            />
+            <img
+              src="/images/sevamrita-text-inline-small-dark.png"
+              width="250"
+              height="80"
+              className="d-inline-block align-top header-logo header-logo--dark"
               alt="Sevamrita Foundation Logo"
             />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle} aria-label="Toggle navigation" />
+          <div className="header-mobile-controls">
+            <ThemeToggle />
+            <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle} aria-label="Toggle navigation" />
+          </div>
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link as={NavLink} to="/" onClick={handleLinkClick} end>Home</Nav.Link>
-              <Nav.Link as={NavLink} to="/team" onClick={handleLinkClick}>Team</Nav.Link>
-              <Nav.Link as={NavLink} to="/story" onClick={handleLinkClick}>Journey</Nav.Link>
-              <Nav.Link as={NavLink} to="/whatwedo" onClick={handleLinkClick}>What we do</Nav.Link>
-            </Nav>
+            <HeaderNav onNavigate={handleLinkClick} />
 
             <div className="header-right-cluster">
               <div className={`header-scroll-actions ${hasVisibleActions ? 'is-visible' : ''}`}>
@@ -226,6 +237,8 @@ function Header() {
                   Log in
                 </Button>
               )}
+
+              <ThemeToggle className="theme-toggle-btn--desktop" />
             </div>
           </Navbar.Collapse>
         </Container>

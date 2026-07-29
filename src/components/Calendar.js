@@ -107,7 +107,7 @@ const Calendar = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        Our <span className="highlight">Events</span>
+                        Our Events
                     </motion.h1>
                     <motion.p
                         className="page-subtitle"
