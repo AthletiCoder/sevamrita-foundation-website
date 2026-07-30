@@ -27,7 +27,7 @@ const pillarsData = [
   {
     id: "charitamrita",
     title: "Charitamrita",
-    subtitle: "(Focus youth empowerment)",
+    subtitle: "(Youth empowerment)",
     description: [
       `Our key focus areas are:`,
     ],

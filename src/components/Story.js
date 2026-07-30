@@ -4,11 +4,11 @@ import './CSS/Story.css';
 
 function Story() {
   const events = useMemo(() => [
-    { date: '2018', title: 'Giving Back to Society', image: '/images/story1.jpg', description: 'Team members took deep interest in giving back to society while holding positions in social bodies of IITB like Abhyuday and Samwaad.' },
-    { date: '2019', title: 'Expanding Reach', image: '/images/story2.jpg', description: 'Formed an informal team with aligned interests to expand our reach beyond IITB. Started conducting value education drives.' },
-    { date: '2020', title: 'Large-Scale Event', image: '/images/story3.jpg', description: 'Successfully organized "Decoding Life’s Sacred Secrets" with Dr. Vivek Bindra, attracting 500+ participants.' },
-    { date: '2024', title: 'Formal Registration', image: '/images/NGO_Image.jpg', description: 'Sevamrita is registered as a Section 8 company to focus on long term vision and CSR impact projects.' },
-    { date: '2025', title: 'City Expansion', image: '/images/NGO_expansion.jpg', description: 'Sevamrita is expanding its reach to Amravati and Gurgaon.' },
+    { date: '2018', title: 'Giving Back to Society', image: '/images/story1.webp', description: 'Team members took deep interest in giving back to society while holding positions in social bodies of IITB like Abhyuday and Samwad.' },
+    { date: '2019', title: 'Expanding Reach', image: '/images/story2.webp', description: 'Formed an informal team with aligned interests to expand our reach beyond IITB. Started conducting value education drives.' },
+    { date: '2020', title: 'Large-Scale Event', image: '/images/story3.webp', description: 'Successfully organized college level leadership and skill development programs, attracting 500+ participants.' },
+    { date: '2024', title: 'Formal Registration', image: '/images/story4.webp', description: 'Sevamrita is registered as a Section 8 company to focus on long term vision and CSR impact projects.' },
+    { date: '2025', title: 'City Expansion', image: '/images/story5.webp', description: 'Sevamrita expanded its reach to Amravati (MH) and Gurgaon.' },
   ], []);
 
   return (

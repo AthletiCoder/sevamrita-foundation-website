@@ -20,7 +20,7 @@ const TestimonialsPage = () => (
 
     <section className="testimonial-video-section">
       <div className="testimonial-video-inner">
-        <h2 className="testimonial-video-title">Watch their story</h2>
+        <h2 className="testimonial-video-title">Hear from our partners</h2>
         <div className="testimonial-video-frame">
           <video controls className="testimonial-video-player" preload="metadata">
             <source src="/videos/testimonial1.mp4" type="video/mp4" />

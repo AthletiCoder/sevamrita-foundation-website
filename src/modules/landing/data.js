@@ -14,7 +14,7 @@ export const FOCUS_SECTIONS = [
   },
   {
     id: 'de-addiction',
-    title: 'De-addiction',
+    title: 'De-addiction awareness',
     subtitle: 'save a life',
     align: 'right',
     image: '/images/Sevamrita_Deaddiction_heroimg.webp',
