@@ -1,47 +1,42 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { CONTACT_INFO, SOCIAL_LINKS } from '../modules/contact';
 import './CSS/Footer.css';
 
 function Footer() {
-  const phone = '+91 8087650684';
-  const email = 'info@sevamrita.org';
-
   return (
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-item">
           <h6>Contact Us</h6>
           <div className="footer-contact">
-            {phone}
+            {CONTACT_INFO.phone}
           </div>
-          <a href={`mailto:${email}`} className="footer-link">
-            {email}
+          <a href={CONTACT_INFO.emailHref} className="footer-link">
+            {CONTACT_INFO.email}
           </a>
         </div>
 
         <div className="footer-item">
           <h6>Quick Links</h6>
-          <a href="/contact" className="footer-link">Contact</a><br />
-          <a href="/contribute" className="footer-link">Support Us</a>
+          <Link to="/contact" className="footer-link">Contact</Link><br />
+          <Link to="/contribute" className="footer-link">Support Us</Link>
         </div>
 
         <div className="footer-item">
           <h6>Connect With Us</h6>
           <div className="social-media">
-            <a href="https://www.instagram.com/sevamritafoundation/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a href="https://x.com/sevamrita" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-              <i className="fab fa-twitter"></i>
-            </a>
-            <a href="https://www.linkedin.com/company/sevamrita-foundation" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <i className="fab fa-linkedin"></i>
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=61566335922155" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <i className="fab fa-facebook"></i>
-            </a>
-            <a href="https://www.youtube.com/@SevamritaFoundation-w6u" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-              <i className="fab fa-youtube"></i>
-            </a>
+            {SOCIAL_LINKS.map((link) => (
+              <a
+                key={link.key}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.label}
+              >
+                <i className={link.icon}></i>
+              </a>
+            ))}
           </div>
         </div>
       </div>

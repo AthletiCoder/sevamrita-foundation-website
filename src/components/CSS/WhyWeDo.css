@@ -1,0 +1,74 @@
+/* Why We Do page */
+
+.whywedo-section {
+  padding: var(--spacing-3xl) 0;
+  background: var(--color-background);
+  scroll-margin-top: 96px;
+}
+
+.whywedo-section--alt {
+  background: var(--color-surface);
+}
+
+.whywedo-section-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.whywedo-section-eyebrow {
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin: 0 0 var(--spacing-sm);
+}
+
+.whywedo-section-title {
+  font-family: var(--font-accent);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.25;
+  margin: 0 0 var(--spacing-lg);
+}
+
+.whywedo-section-body {
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+.whywedo-values {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.whywedo-value-title {
+  font-family: var(--font-accent);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-xs);
+}
+
+.whywedo-value-body {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .whywedo-section {
+    padding: var(--spacing-2xl) 0;
+    scroll-margin-top: 80px;
+  }
+}

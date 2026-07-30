@@ -63,7 +63,7 @@ function Team() {
       <section className="page-hero">
         <div className="page-hero-content">
           <h1 className="page-title">
-            <span className="highlight">Our Team</span>
+            Our Team
           </h1>
           <p className="page-subtitle">
             Meet the dedicated individuals driving our mission forward.

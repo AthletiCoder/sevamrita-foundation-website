@@ -11,6 +11,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/AuthContext';
+import { initTheme } from './modules/theme';
+
+initTheme();
+
+if (typeof window !== 'undefined' && window.history && 'scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

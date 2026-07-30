@@ -55,7 +55,7 @@ function DonationThankYou() {
       <section className="page-hero">
         <div className="page-hero-content">
           <h1 className="page-title">
-            <span className="highlight">Donation</span> status
+            Donation status
           </h1>
         </div>
       </section>

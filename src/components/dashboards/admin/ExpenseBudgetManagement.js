@@ -146,7 +146,7 @@ const ExpenseBudgetManagement = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <i className="fas fa-file-invoice-dollar"></i> Expense & Budget <span className="highlight">Management</span>
+                        <i className="fas fa-file-invoice-dollar"></i> Expense & Budget Management
                     </motion.h1>
                     <motion.p
                         className="page-subtitle"

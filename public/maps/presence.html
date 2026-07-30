@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sevamrita Foundation — Locations</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <style>
+    html, body, #map {
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      background: #f0f9ff;
+    }
+    .leaflet-container {
+      font-family: system-ui, sans-serif;
+    }
+    .sevamrita-marker {
+      background: #2563EB;
+      border: 2px solid #fff;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      width: 22px;
+      height: 22px;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.45);
+    }
+    .leaflet-popup-content-wrapper {
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+    }
+    .leaflet-popup-content {
+      margin: 10px 14px;
+      font-size: 14px;
+      line-height: 1.4;
+      color: #111827;
+    }
+    .leaflet-popup-content strong {
+      color: #1E40AF;
+    }
+  </style>
+</head>
+<body>
+  <div id="map" role="img" aria-label="Map of Sevamrita Foundation locations in Pune, Amravati, Delhi, and Hyderabad"></div>
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script>
+    var locations = [
+      { name: 'Pune', region: 'Maharashtra', lat: 18.5204, lng: 73.8567 },
+      { name: 'Amravati', region: 'Maharashtra', lat: 20.9374, lng: 77.7796 },
+      { name: 'Delhi', region: 'India', lat: 28.6139, lng: 77.209 },
+      { name: 'Hyderabad', region: 'Telangana', lat: 17.385, lng: 78.4867 }
+    ];
+
+    var map = L.map('map', {
+      scrollWheelZoom: false,
+      zoomControl: true,
+    }).setView([23.5, 77.2], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var icon = L.divIcon({
+      className: '',
+      html: '<div class="sevamrita-marker"></div>',
+      iconSize: [22, 22],
+      iconAnchor: [11, 22],
+      popupAnchor: [0, -18]
+    });
+
+    var bounds = [];
+    locations.forEach(function (loc) {
+      var marker = L.marker([loc.lat, loc.lng], { icon: icon }).addTo(map);
+      marker.bindPopup('<strong>' + loc.name + '</strong><br>' + loc.region);
+      bounds.push([loc.lat, loc.lng]);
+    });
+
+    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 6 });
+
+    map.once('focus', function () {
+      map.scrollWheelZoom.enable();
+    });
+  </script>
+</body>
+</html>

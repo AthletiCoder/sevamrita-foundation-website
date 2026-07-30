@@ -25,17 +25,6 @@
     color: white !important;
 }
 
-.manage-events-page .page-title .highlight {
-    /* Remove highlight box on blue gradient header - use plain white text */
-    background-color: transparent !important;
-    background: none !important;
-    color: white !important;
-    -webkit-text-fill-color: white !important;
-    -webkit-background-clip: initial !important;
-    background-clip: initial !important;
-    padding: 0 !important;
-}
-
 .manage-events-page .page-subtitle {
     color: rgba(255, 255, 255, 0.9);
     font-size: 1.1rem;

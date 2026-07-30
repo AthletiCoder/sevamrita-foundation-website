@@ -573,3 +573,152 @@
 .auth-modal .modal-content {
     animation: fadeIn 0.3s ease;
 }
+
+/* =========================================
+   Dark theme — Auth modal & forms
+   ========================================= */
+[data-theme="dark"] .auth-modal .modal-content {
+    background: rgba(17, 24, 39, 0.96);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+[data-theme="dark"] .auth-modal .modal-header {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    background: linear-gradient(135deg, #111827 0%, #0B1220 100%);
+}
+
+[data-theme="dark"] .auth-modal .modal-title {
+    color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .auth-modal .btn-close {
+    filter: invert(1) grayscale(1);
+    opacity: 0.7;
+}
+
+[data-theme="dark"] .api-error-message {
+    background: rgba(127, 29, 29, 0.35);
+    color: #FECACA;
+    border-color: rgba(248, 113, 113, 0.35);
+}
+
+[data-theme="dark"] .api-success-message {
+    background: rgba(6, 78, 59, 0.35);
+    color: #A7F3D0;
+    border-color: rgba(52, 211, 153, 0.35);
+}
+
+[data-theme="dark"] .form-input-auth {
+    border-color: var(--color-border);
+    background: var(--color-background);
+    color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .form-input-auth:focus {
+    border-color: var(--color-primary);
+    background: var(--color-surface);
+    box-shadow: 0 0 0 4px rgba(241, 233, 214, 0.15);
+}
+
+[data-theme="dark"] .input-wrapper.has-error .form-input-auth {
+    background: rgba(127, 29, 29, 0.25);
+}
+
+[data-theme="dark"] .form-label-auth {
+    color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .form-input-auth:focus ~ .form-label-auth,
+[data-theme="dark"] .form-input-auth:not(:placeholder-shown) ~ .form-label-auth,
+[data-theme="dark"] .input-wrapper.has-value .form-label-auth {
+    color: var(--color-primary);
+    background: var(--color-surface);
+}
+
+[data-theme="dark"] .password-toggle {
+    color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .password-toggle:hover {
+    color: var(--color-primary);
+}
+
+[data-theme="dark"] .strength-bar {
+    background: var(--color-border);
+}
+
+[data-theme="dark"] .checkbox-label,
+[data-theme="dark"] .auth-toggle-text,
+[data-theme="dark"] .section-label,
+[data-theme="dark"] .custom-checkbox {
+    color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .custom-checkbox:hover {
+    color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .forgot-link:hover,
+[data-theme="dark"] .auth-link:hover {
+    color: var(--color-primary-dark);
+}
+
+[data-theme="dark"] .btn-auth-submit {
+    background: var(--color-primary) !important;
+    color: #0B1220 !important;
+    box-shadow: 0 4px 12px rgba(241, 233, 214, 0.2);
+}
+
+[data-theme="dark"] .btn-auth-submit:hover:not(:disabled) {
+    background: var(--color-primary-dark) !important;
+    color: #0B1220 !important;
+    box-shadow: 0 8px 20px rgba(241, 233, 214, 0.3);
+}
+
+[data-theme="dark"] .btn-auth-submit .spinner {
+    border-color: rgba(11, 18, 32, 0.3);
+    border-top-color: #0B1220;
+}
+
+[data-theme="dark"] .divider::before {
+    background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+}
+
+[data-theme="dark"] .divider span {
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .social-btn {
+    border-color: var(--color-border);
+    background: var(--color-background);
+    color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .checkbox-grid {
+    background: var(--color-background);
+    border-color: var(--color-border);
+}
+
+[data-theme="dark"] .checkmark {
+    background-color: var(--color-background);
+    border-color: var(--color-border);
+}
+
+[data-theme="dark"] .custom-checkbox:hover input ~ .checkmark {
+    border-color: var(--color-primary);
+}
+
+[data-theme="dark"] .custom-checkbox input:checked ~ .checkmark {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(241, 233, 214, 0.15);
+}
+
+[data-theme="dark"] .custom-checkbox input:checked ~ .checkmark:after {
+    border-color: #0B1220;
+}
+
+[data-theme="dark"] .sections-group {
+    background: transparent;
+}

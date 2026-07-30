@@ -191,7 +191,7 @@ const DonationManagement = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <i className="fas fa-hand-holding-usd"></i> Donation <span className="highlight">Management</span>
+                        <i className="fas fa-hand-holding-usd"></i> Donation Management
                     </motion.h1>
                     <motion.p
                         className="page-subtitle"

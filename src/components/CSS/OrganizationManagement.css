@@ -35,17 +35,6 @@
     color: white;
 }
 
-.organization-management-page .page-title .highlight {
-    /* Remove highlight box on blue gradient header - use plain white text */
-    background-color: transparent !important;
-    background: none !important;
-    color: white !important;
-    -webkit-text-fill-color: white !important;
-    -webkit-background-clip: initial !important;
-    background-clip: initial !important;
-    padding: 0 !important;
-}
-
 /* Ensure icon in page title is white */
 .organization-management-page .page-title i {
     color: white !important;
