@@ -40,11 +40,13 @@ export const NAV_ITEMS = [
       { key: 'core-values', label: 'Core values', path: '/whywedo#core-values' },
     ],
   },
+  // Hidden for now — set hidden: false (or remove the flag) to restore in the navbar.
   {
     key: 'news',
     label: 'News',
     path: 'https://news.google.com/search?q=sevamrita',
     external: true,
+    hidden: true,
     children: [
       { key: 'newsroom', label: 'Newsroom', path: null },
       { key: 'calendar', label: 'Calendar', path: null },

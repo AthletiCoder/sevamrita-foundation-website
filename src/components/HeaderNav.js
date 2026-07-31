@@ -92,7 +92,7 @@ function HeaderNav({ onNavigate }) {
 
   return (
     <Nav className="me-auto">
-      {NAV_ITEMS.map((item) => (
+      {NAV_ITEMS.filter((item) => !item.hidden).map((item) => (
         <Nav.Item key={item.key} className={`header-nav-item ${item.children ? 'has-dropdown' : ''}`}>
           {item.path ? (
             <Nav.Link
