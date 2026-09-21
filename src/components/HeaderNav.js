@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import { NAV_ITEMS } from '../modules/header';
 import { scrollToHash } from '../utils/scrollToHash';
+
+function NavGlyph({ icon }) {
+  if (!icon) {
+    return null;
+  }
+  return <i className={`${icon} header-nav-icon`} aria-hidden="true" />;
+}
+
+function NavLabel({ icon, label }) {
+  return (
+    <span className="header-nav-label">
+      <NavGlyph icon={icon} />
+      <span>{label}</span>
+    </span>
+  );
+}
 
 function parseNavPath(path) {
   if (!path) {
@@ -24,9 +40,22 @@ function parseNavPath(path) {
 function HeaderNav({ onNavigate }) {
   const navigate = useNavigate();
   const location = useLocation();
+  /* After choosing a dropdown item, force-close until the pointer leaves/re-enters */
+  const [closedDropdownKey, setClosedDropdownKey] = useState(null);
 
-  const handleNavClick = (event, path) => {
+  const closeDropdown = (itemKey, target) => {
+    setClosedDropdownKey(itemKey);
+    if (target instanceof HTMLElement) {
+      target.blur();
+    }
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  };
+
+  const handleNavClick = (event, path, itemKey) => {
     onNavigate?.();
+    closeDropdown(itemKey, event.currentTarget);
 
     const { pathname, hash } = parseNavPath(path);
     if (!hash) {
@@ -47,6 +76,7 @@ function HeaderNav({ onNavigate }) {
   const handleParentClick = (event, item) => {
     event.preventDefault();
     onNavigate?.();
+    closeDropdown(item.key, event.currentTarget);
 
     if (item.external) {
       window.open(item.path, '_blank', 'noopener,noreferrer');
@@ -69,11 +99,36 @@ function HeaderNav({ onNavigate }) {
     }
   };
 
-  const renderChild = (child) => {
+  const renderChild = (child, itemKey) => {
+    if (child.children?.length) {
+      return (
+        <div key={child.key} className="header-nav-subitem">
+          {child.path ? (
+            <Link
+              to={child.path}
+              className="dropdown-item header-nav-subitem-link"
+              onClick={(event) => handleNavClick(event, child.path, itemKey)}
+            >
+              <NavLabel icon={child.icon} label={child.label} />
+              <i className="fas fa-chevron-right header-nav-subcaret" aria-hidden="true" />
+            </Link>
+          ) : (
+            <span className="dropdown-item header-nav-subitem-link" aria-disabled="true">
+              <NavLabel icon={child.icon} label={child.label} />
+              <i className="fas fa-chevron-right header-nav-subcaret" aria-hidden="true" />
+            </span>
+          )}
+          <div className="dropdown-menu header-nav-submenu">
+            {child.children.map((nested) => renderChild(nested, itemKey))}
+          </div>
+        </div>
+      );
+    }
+
     if (!child.path) {
       return (
         <span key={child.key} className="dropdown-item header-nav-placeholder" aria-disabled="true">
-          {child.label}
+          <NavLabel icon={child.icon} label={child.label} />
         </span>
       );
     }
@@ -83,9 +138,9 @@ function HeaderNav({ onNavigate }) {
         key={child.key}
         to={child.path}
         className="dropdown-item"
-        onClick={(event) => handleNavClick(event, child.path)}
+        onClick={(event) => handleNavClick(event, child.path, itemKey)}
       >
-        {child.label}
+        <NavLabel icon={child.icon} label={child.label} />
       </Link>
     );
   };
@@ -93,7 +148,22 @@ function HeaderNav({ onNavigate }) {
   return (
     <Nav className="me-auto">
       {NAV_ITEMS.filter((item) => !item.hidden).map((item) => (
-        <Nav.Item key={item.key} className={`header-nav-item ${item.children ? 'has-dropdown' : ''}`}>
+        <Nav.Item
+          key={item.key}
+          className={`header-nav-item ${item.children ? 'has-dropdown' : ''}${
+            closedDropdownKey === item.key ? ' is-dropdown-closed' : ''
+          }`}
+          onMouseEnter={() => {
+            if (closedDropdownKey === item.key) {
+              setClosedDropdownKey(null);
+            }
+          }}
+          onMouseLeave={() => {
+            if (closedDropdownKey === item.key) {
+              setClosedDropdownKey(null);
+            }
+          }}
+        >
           {item.path ? (
             <Nav.Link
               href={item.path}
@@ -101,19 +171,19 @@ function HeaderNav({ onNavigate }) {
               rel={item.external ? 'noopener noreferrer' : undefined}
               onClick={(event) => handleParentClick(event, item)}
             >
-              {item.label}
+              <NavLabel icon={item.icon} label={item.label} />
               {item.children && <i className="fas fa-chevron-down header-nav-caret" aria-hidden="true"></i>}
             </Nav.Link>
           ) : (
             <Nav.Link as="button" type="button" className="header-nav-static">
-              {item.label}
+              <NavLabel icon={item.icon} label={item.label} />
               {item.children && <i className="fas fa-chevron-down header-nav-caret" aria-hidden="true"></i>}
             </Nav.Link>
           )}
 
           {item.children && (
             <div className="dropdown-menu header-nav-menu">
-              {item.children.map(renderChild)}
+              {item.children.map((child) => renderChild(child, item.key))}
             </div>
           )}
         </Nav.Item>

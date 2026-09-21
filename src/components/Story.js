@@ -1,15 +1,49 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { STORY_EVENTS } from '../modules/story/data';
 import './CSS/Story.css';
 
 function Story() {
-  const events = useMemo(() => [
-    { date: '2018', title: 'Giving Back to Society', image: '/images/story1.webp', description: 'Team members took deep interest in giving back to society while holding positions in social bodies of IITB like Abhyuday and Samwad.' },
-    { date: '2019', title: 'Expanding Reach', image: '/images/story2.webp', description: 'Formed an informal team with aligned interests to expand our reach beyond IITB. Started conducting value education drives.' },
-    { date: '2020', title: 'Large-Scale Event', image: '/images/story3.webp', description: 'Successfully organized college level leadership and skill development programs, attracting 500+ participants.' },
-    { date: '2024', title: 'Formal Registration', image: '/images/story4.webp', description: 'Sevamrita is registered as a Section 8 company to focus on long term vision and CSR impact projects.' },
-    { date: '2025', title: 'City Expansion', image: '/images/story5.webp', description: 'Sevamrita expanded its reach to Amravati (MH) and Gurgaon.' },
-  ], []);
+  const containerRef = useRef(null);
+  const markerRef = useRef(null);
+  const progressFillRef = useRef(null);
+  const itemRefs = useRef([]);
+  const [activeYear, setActiveYear] = useState(STORY_EVENTS[0]?.date ?? '');
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const marker = markerRef.current;
+    const items = itemRefs.current.filter(Boolean);
+
+    if (!container || !marker || items.length === 0) {
+      return undefined;
+    }
+
+    let cancelled = false;
+    let cleanup = () => {};
+
+    import('../modules/story/timelineScroll')
+      .then(({ initTimelineYearScroll }) => {
+        if (cancelled) return;
+
+        cleanup = initTimelineYearScroll({
+          container,
+          marker,
+          progressFill: progressFillRef.current,
+          items,
+          years: STORY_EVENTS.map((event) => event.date),
+          onYearChange: setActiveYear,
+        });
+      })
+      .catch((error) => {
+        console.error('Failed to init timeline scroll:', error);
+      });
+
+    return () => {
+      cancelled = true;
+      cleanup();
+    };
+  }, []);
 
   return (
     <div className="story-page">
@@ -29,26 +63,41 @@ function Story() {
         </div>
       </section>
 
-      <div className="timeline-container">
-        {events.map((event, index) => (
-          <motion.div
-            className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}
-            key={index}
-            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <div className="timeline-content">
-              <span className="event-date">{event.date}</span>
-              <img src={event.image} alt={event.title} className="event-img" />
-              <h3 className="event-title">{event.title}</h3>
-              <p className="event-desc">{event.description}</p>
-            </div>
-            <div className="timeline-dot"></div>
-          </motion.div>
-        ))}
-        <div className="timeline-line"></div>
+      <div className="timeline-container" ref={containerRef}>
+        <div className="timeline-line" aria-hidden="true">
+          <div className="timeline-progress" ref={progressFillRef} />
+          <div className="timeline-year-marker" ref={markerRef}>
+            <span className="timeline-year-value" aria-live="polite">
+              {activeYear}
+            </span>
+          </div>
+        </div>
+
+        {STORY_EVENTS.map((event, index) => {
+          const isActive = event.date === activeYear;
+
+          return (
+            <motion.div
+              className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}${isActive ? ' is-active' : ''}`}
+              key={event.date}
+              ref={(node) => {
+                itemRefs.current[index] = node;
+              }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <div className="timeline-content">
+                <span className="event-date">{event.date}</span>
+                <img src={event.image} alt={event.title} className="event-img" />
+                <h3 className="event-title">{event.title}</h3>
+                <p className="event-desc">{event.description}</p>
+              </div>
+              <div className="timeline-dot" />
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -17,7 +17,8 @@ const Contact = lazy(() => import('./components/Contact'));
 const Team = lazy(() => import('./components/Team'));
 const WhatWeDo = lazy(() => import('./components/WhatWeDo'));
 const WhyWeDo = lazy(() => import('./components/WhyWeDo'));
-const Calendar = lazy(() => import('./components/Calendar'));
+const EventsSocial = lazy(() => import('./components/EventsSocial'));
+const EventsGallery = lazy(() => import('./components/EventsGallery'));
 const Resources = lazy(() => import('./components/Resources'));
 const TestimonialsPage = lazy(() => import('./components/TestimonialsPage'));
 
@@ -52,7 +53,10 @@ function App() {
               <Route path="/whatwedo" element={<WhatWeDo />} />
               <Route path="/whywedo" element={<WhyWeDo />} />
               <Route path="/story" element={<Story />} />
-              <Route path="/events-calender" element={<Calendar />} />
+              <Route path="/events/social" element={<EventsSocial />} />
+              <Route path="/events/gallery" element={<EventsGallery />} />
+              <Route path="/events-calender" element={<Navigate to="/events/social" replace />} />
+              <Route path="/events" element={<Navigate to="/events/social" replace />} />
               <Route path="/contribute" element={<Contribute />} />
               <Route path="/contribute/thank-you" element={<DonationThankYou />} />
               <Route path="/team" element={<Team />} />

@@ -5,6 +5,8 @@
 
 /* Force consistent rendering */
 .App {
+    /* Keep opaque header strip / hero carousel aligned with sticky nav height */
+    --hero-header-offset: 6rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -12,6 +14,21 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+}
+
+/* Compact nav: shrink the fixed white header mask in lockstep */
+.App:has(.header.scrolled) {
+    --hero-header-offset: 4.5rem;
+}
+
+@media (max-width: 991px) {
+    .App {
+        --hero-header-offset: 4.75rem;
+    }
+
+    .App:has(.header.scrolled) {
+        --hero-header-offset: 4.25rem;
+    }
 }
 
 /* Ensure main content takes available space */
@@ -55,7 +72,7 @@
 
 .App .form-control:focus {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.15);
     outline: none;
 }
 
@@ -73,11 +90,23 @@
     padding-bottom: 0.5rem !important;
 }
 
+.App .navbar.scrolled {
+    min-height: 72px;
+    padding-top: 0.2rem !important;
+    padding-bottom: 0.2rem !important;
+}
+
 @media (max-width: 991px) {
     .App .navbar {
         min-height: 76px;
         padding-top: 0.35rem !important;
         padding-bottom: 0.35rem !important;
+    }
+
+    .App .navbar.scrolled {
+        min-height: 68px;
+        padding-top: 0.25rem !important;
+        padding-bottom: 0.25rem !important;
     }
 }
 

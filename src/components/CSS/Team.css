@@ -40,12 +40,39 @@
 }
 
 /* Team Section Styles */
+.people-section-title {
+  text-align: center;
+  font-family: var(--font-accent);
+  font-size: var(--font-size-2xl);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-xl);
+}
+
+.people-directors {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-2xl) var(--spacing-md) var(--spacing-md);
+}
+
+.people-directors-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-xl);
+}
+
+.people-gallery {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-2xl) var(--spacing-md) 0;
+}
+
 .people-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--spacing-xl);
-  padding: var(--spacing-3xl) var(--spacing-md);
+  padding: 0 var(--spacing-md) var(--spacing-3xl);
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -55,6 +82,11 @@
   width: 320px;
   height: 420px;
   cursor: pointer;
+}
+
+.person-card--director {
+  width: 360px;
+  height: 460px;
 }
 
 .person-card-inner {
@@ -137,7 +169,7 @@
 /* Back Face */
 .person-card-back {
   background: var(--gradient-primary);
-  color: white;
+  color: var(--color-on-primary);
   transform: rotateY(180deg);
   padding: var(--spacing-xl);
   display: flex;
@@ -148,7 +180,7 @@
 }
 
 .person-card-back h2 {
-  color: rgba(255, 255, 255, 0.9);
+  color: color-mix(in srgb, var(--color-on-primary) 90%, transparent);
   font-size: var(--font-size-lg);
   margin-bottom: var(--spacing-lg);
   font-family: var(--font-accent);
@@ -158,7 +190,10 @@
   font-size: var(--font-size-sm);
   line-height: 1.6;
   margin-bottom: var(--spacing-lg);
-  color: rgba(255, 255, 255, 0.95);
+  color: color-mix(in srgb, var(--color-on-primary) 88%, transparent);
+  overflow-y: auto;
+  max-height: 70%;
+  padding-right: var(--spacing-xs);
 }
 
 .contact-info {
@@ -171,19 +206,19 @@
 .contact-icon {
   width: 40px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.2);
+  background: color-mix(in srgb, var(--color-on-primary) 14%, transparent);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--color-on-primary);
   font-size: 1.25rem;
   transition: all var(--transition-fast);
   backdrop-filter: blur(5px);
 }
 
 .contact-icon:hover {
-  background: white;
+  background: var(--color-on-primary);
   color: var(--color-primary);
   transform: translateY(-3px);
 }
@@ -250,15 +285,18 @@
 }
 
 @media (max-width: 640px) {
-  .people-container {
+  .people-container,
+  .people-directors-row {
     flex-direction: column;
     gap: 15px;
     margin: 2%;
   }
 
-  .person-card {
+  .person-card,
+  .person-card--director {
     flex-direction: column;
     width: 90%;
+    height: 420px;
     margin: 0 auto;
     display: block;
   }

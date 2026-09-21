@@ -91,7 +91,7 @@
 /* Buttons */
 .btn-primary-gradient {
     background: var(--gradient-card-hover);
-    color: white;
+    color: var(--color-on-primary);
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 50px;
@@ -104,5 +104,5 @@
 .btn-primary-gradient:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
-    color: white;
+    color: var(--color-on-primary);
 }

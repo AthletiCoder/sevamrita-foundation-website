@@ -17,8 +17,62 @@
   top: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(to bottom, transparent, var(--color-primary), var(--color-primary-light), transparent);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-border),
+    var(--color-border),
+    transparent
+  );
   transform: translateX(-50%);
+  z-index: 15;
+  pointer-events: none;
+}
+
+.timeline-progress {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    var(--color-primary),
+    var(--color-primary-light)
+  );
+  transform-origin: top center;
+  transform: scaleY(0);
+  border-radius: inherit;
+}
+
+.timeline-year-marker {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 2.25rem;
+  margin-left: -2.25rem;
+  will-change: transform;
+}
+
+.timeline-year-value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.25rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
 }
 
 .timeline-item {
@@ -48,13 +102,50 @@
   color: var(--color-text-primary);
   max-width: 450px;
   box-shadow: var(--shadow-lg);
-  transition: transform 0.3s ease;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
   border: 1px solid var(--color-border);
 }
 
 .timeline-content:hover {
   transform: scale(1.02);
   border-color: var(--color-primary);
+}
+
+.timeline-item.left .timeline-content {
+  transform-origin: right center;
+}
+
+.timeline-item.right .timeline-content {
+  transform-origin: left center;
+}
+
+.timeline-item.is-active .timeline-content {
+  border-color: var(--color-primary);
+  transform: scale(1.08);
+  box-shadow:
+    var(--shadow-lg),
+    var(--shadow-color),
+    0 0 0 1px var(--color-primary),
+    0 0 28px color-mix(in srgb, var(--color-primary) 35%, transparent);
+}
+
+.timeline-item.is-active .timeline-content:hover {
+  transform: scale(1.08);
+}
+
+.timeline-item.is-active .event-date {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.timeline-item.is-active .timeline-dot {
+  background: var(--color-primary);
+  border-color: var(--color-primary-dark);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-primary) 28%, transparent);
+  transform: scale(1.2);
 }
 
 .event-date {
@@ -72,7 +163,6 @@
   object-fit: cover;
   border-radius: 12px;
   margin: 20px 0;
-  /* Removed grayscale for more vibrancy to match landing */
 }
 
 .story-page .event-title {
@@ -92,6 +182,11 @@
   border: 4px solid var(--color-primary);
   border-radius: 50%;
   z-index: 10;
+  transition:
+    transform 0.35s ease,
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .left .timeline-dot {
@@ -108,6 +203,10 @@
     left: 30px;
   }
 
+  .timeline-year-marker {
+    margin-left: -2.25rem;
+  }
+
   .timeline-item {
     width: 100% !important;
     margin-left: 0 !important;
@@ -115,7 +214,29 @@
     text-align: left !important;
   }
 
+  .timeline-item.left .timeline-content,
+  .timeline-item.right .timeline-content {
+    transform-origin: left center;
+  }
+
   .timeline-dot {
     left: 22px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-year-marker,
+  .timeline-progress,
+  .timeline-content,
+  .timeline-dot {
+    transition: none;
+  }
+
+  .timeline-item.is-active .timeline-content {
+    transform: none;
+  }
+
+  .timeline-item.is-active .timeline-dot {
+    transform: none;
   }
 }

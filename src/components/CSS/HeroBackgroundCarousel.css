@@ -1,0 +1,51 @@
+/* Full-bleed hero background carousel — fixed, starts below sticky header */
+.hero-bg-carousel {
+  position: fixed;
+  top: var(--hero-header-offset, 6rem);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #1a1a1a;
+  transition: top 0.28s ease;
+}
+
+.hero-bg-carousel__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0;
+  transition: opacity 1.1s ease-in-out;
+}
+
+.hero-bg-carousel__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      105deg,
+      rgba(8, 12, 20, 0.78) 0%,
+      rgba(8, 12, 20, 0.55) 42%,
+      rgba(8, 12, 20, 0.45) 100%
+    ),
+    rgba(0, 0, 0, 0.28);
+}
+
+@media (max-width: 992px) {
+  .hero-bg-carousel__overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(8, 12, 20, 0.72) 0%,
+        rgba(8, 12, 20, 0.55) 45%,
+        rgba(8, 12, 20, 0.62) 100%
+      ),
+      rgba(0, 0, 0, 0.32);
+  }
+}

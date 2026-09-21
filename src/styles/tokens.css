@@ -1,39 +1,40 @@
 /* Design Tokens for Sevamrita Foundation */
 
 :root {
+    color-scheme: light;
+    accent-color: var(--color-primary);
+
     /* =========================================
      Color System
      ========================================= */
 
-    /* Primary Colors - Trust & Compassion */
-    --color-primary: #2563EB;
-    /* Royal Blue */
-    --color-primary-dark: #1E40AF;
-    --color-primary-light: #DBEAFE;
+    /* Primary — modern marigold gold */
+    --color-primary: #C98900;
+    --color-primary-dark: #A36E00;
+    --color-primary-light: #FFF4CC;
+    --color-on-primary: #1A1400;
+    --color-primary-rgb: 201, 137, 0;
 
-    /* Secondary Colors - Warmth & Hope */
-    --color-accent: #F59E0B;
-    /* Warm Amber */
-    --color-accent-dark: #D97706;
+    /* Accent — cool blue for secondary actions / balance */
+    --color-accent: #2563EB;
+    --color-accent-dark: #1D4ED8;
     --color-success: #10B981;
-    /* Emerald */
 
     /* Neutral Colors */
-    --color-background: #F9FAFB;
-    /* Cool Gray */
+    --color-background: #FAFAF7;
     --color-surface: #FFFFFF;
     --color-landing-background: #f8f7f1;
     --color-text-primary: #111827;
     --color-text-secondary: #6B7280;
-    --color-border: #E5E7EB;
+    --color-border: #E8E4D9;
     --color-pillar-glass: #041C4F;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
-    --gradient-card-hover: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);
+    --gradient-hero: linear-gradient(135deg, #fffbeb 0%, #fefce8 50%, #f8fafc 100%);
+    --gradient-card-hover: linear-gradient(135deg, #F0B429 0%, #EF4444 100%);
     --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
     --gradient-dark: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
-    --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    --gradient-primary: linear-gradient(135deg, #F5C518 0%, #E0A100 55%, #C98900 100%);
 
     /* =========================================
      Typography System
@@ -90,7 +91,10 @@
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    --shadow-color: 0 4px 20px rgba(37, 99, 235, 0.2);
+    --shadow-color: 0 4px 20px rgba(var(--color-primary-rgb), 0.28);
+    --shadow-primary: 0 4px 14px -2px rgba(var(--color-primary-rgb), 0.35);
+    --shadow-primary-lg: 0 10px 28px -5px rgba(var(--color-primary-rgb), 0.4);
+    --shadow-primary-focus: 0 0 0 4px rgba(var(--color-primary-rgb), 0.28);
 
     /* =========================================
      Border Radius
@@ -154,9 +158,19 @@
     --glass-icon: rgba(255, 255, 255, 0.45);
     --glass-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
 
-    /* Header / chrome surfaces */
-    --header-bg: rgba(255, 255, 255, 0.68);
-    --header-bg-scrolled: rgba(255, 255, 255, 0.8);
+    /* Header / chrome surfaces — soft marigold wash over frosted glass */
+    --header-bg: linear-gradient(
+      105deg,
+      rgba(255, 244, 204, 0.72) 0%,
+      rgba(255, 255, 255, 0.7) 42%,
+      rgba(255, 251, 235, 0.68) 100%
+    );
+    --header-bg-scrolled: linear-gradient(
+      105deg,
+      rgba(255, 244, 204, 0.88) 0%,
+      rgba(255, 255, 255, 0.86) 45%,
+      rgba(254, 252, 232, 0.84) 100%
+    );
     --header-blur: 20px;
     --header-border: rgba(255, 255, 255, 0.2);
     --header-menu-bg: rgba(255, 255, 255, 0.98);
@@ -192,12 +206,15 @@
 [data-theme="dark"] {
     color-scheme: dark;
 
-    --color-primary: #F1E9D6;
-    --color-primary-dark: #E5D9BC;
-    --color-primary-light: #3A3428;
+    /* Luminous gold — pops on dark surfaces */
+    --color-primary: #F5C518;
+    --color-primary-dark: #E0A100;
+    --color-primary-light: #3D2E08;
+    --color-on-primary: #1A1400;
+    --color-primary-rgb: 245, 197, 24;
 
-    --color-accent: #FBBF24;
-    --color-accent-dark: #F59E0B;
+    --color-accent: #60A5FA;
+    --color-accent-dark: #3B82F6;
     --color-success: #34D399;
 
     --color-background: #0B1220;
@@ -208,17 +225,20 @@
     --color-border: #1F2937;
     --color-pillar-glass: #0A254F;
 
-    --gradient-hero: linear-gradient(135deg, #0B1220 0%, #111827 100%);
-    --gradient-card-hover: linear-gradient(135deg, #FBBF24 0%, #F87171 100%);
+    --gradient-hero: linear-gradient(135deg, #0B1220 0%, #15120A 50%, #111827 100%);
+    --gradient-card-hover: linear-gradient(135deg, #F5C518 0%, #F87171 100%);
     --gradient-success: linear-gradient(135deg, #34D399 0%, #10B981 100%);
     --gradient-dark: linear-gradient(135deg, #0F172A 0%, #020617 100%);
-    --gradient-primary: linear-gradient(135deg, #F1E9D6 0%, #E5D9BC 100%);
+    --gradient-primary: linear-gradient(135deg, #FACC15 0%, #F5C518 50%, #E0A100 100%);
 
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.45), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.35);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.55), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
-    --shadow-color: 0 4px 20px rgba(241, 233, 214, 0.2);
+    --shadow-color: 0 4px 20px rgba(var(--color-primary-rgb), 0.25);
+    --shadow-primary: 0 4px 14px -2px rgba(var(--color-primary-rgb), 0.35);
+    --shadow-primary-lg: 0 10px 28px -5px rgba(var(--color-primary-rgb), 0.4);
+    --shadow-primary-focus: 0 0 0 4px rgba(var(--color-primary-rgb), 0.32);
 
     --color-events: #EAB308;
     --color-events-text: #FDE68A;
@@ -245,8 +265,18 @@
     --glass-icon: rgba(255, 255, 255, 0.2);
     --glass-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 
-    --header-bg: rgba(17, 24, 39, 0.68);
-    --header-bg-scrolled: rgba(17, 24, 39, 0.8);
+    --header-bg: linear-gradient(
+      105deg,
+      rgba(61, 46, 8, 0.62) 0%,
+      rgba(17, 24, 39, 0.78) 48%,
+      rgba(15, 23, 42, 0.72) 100%
+    );
+    --header-bg-scrolled: linear-gradient(
+      105deg,
+      rgba(61, 46, 8, 0.78) 0%,
+      rgba(17, 24, 39, 0.9) 50%,
+      rgba(15, 23, 42, 0.88) 100%
+    );
     --header-blur: 20px;
     --header-border: rgba(255, 255, 255, 0.08);
     --header-menu-bg: rgba(17, 24, 39, 0.98);
@@ -281,6 +311,6 @@
     --bs-secondary-color: var(--color-text-secondary);
     --bs-tertiary-bg: var(--color-surface);
     --bs-emphasis-color: var(--color-text-primary);
-    --bs-primary: #F1E9D6;
-    --bs-primary-rgb: 241, 233, 214;
+    --bs-primary: #F5C518;
+    --bs-primary-rgb: 245, 197, 24;
 }

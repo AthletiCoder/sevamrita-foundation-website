@@ -12,7 +12,7 @@
 .organization-management-page .page-hero {
     background: var(--gradient-primary);
     padding: 3rem 0;
-    color: white;
+    color: var(--color-on-primary);
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -32,17 +32,17 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    color: white;
+    color: var(--color-on-primary);
 }
 
-/* Ensure icon in page title is white */
+/* Ensure icon in page title matches on-primary */
 .organization-management-page .page-title i {
-    color: white !important;
+    color: var(--color-on-primary) !important;
 }
 
 .organization-management-page .page-subtitle {
     font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: color-mix(in srgb, var(--color-on-primary) 88%, transparent);
     margin: 0 auto;
     text-align: center;
 }
@@ -141,7 +141,7 @@
 .search-box input:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.1);
 }
 
 .filter-buttons {
@@ -168,7 +168,7 @@
 
 .filter-btn.active {
     background: var(--color-primary);
-    color: white;
+    color: var(--color-on-primary);
     border-color: var(--color-primary);
 }
 
@@ -202,12 +202,12 @@
 
 .btn-create {
     background: var(--gradient-primary);
-    color: white;
+    color: var(--color-on-primary);
 }
 
 .btn-create:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.4);
 }
 
 /* Loading & Empty States */
@@ -276,8 +276,8 @@
 }
 
 .org-icon-primary {
-    background: rgba(37, 99, 235, 0.1);
-    color: #2563eb;
+    background: rgba(var(--color-primary-rgb), 0.1);
+    color: var(--color-primary);
 }
 
 .org-icon-success {
@@ -292,7 +292,7 @@
 
 .org-icon-info {
     background: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
+    color: var(--color-primary);
 }
 
 .org-icon-secondary {
@@ -361,7 +361,7 @@
 
 .edit-btn {
     background: var(--color-primary);
-    color: white;
+    color: var(--color-on-primary);
 }
 
 .edit-btn:hover {
@@ -464,7 +464,7 @@
 .form-group textarea:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.1);
 }
 
 .form-group textarea {
@@ -522,7 +522,7 @@
 
 .btn-confirm {
     background: var(--gradient-primary);
-    color: white;
+    color: var(--color-on-primary);
 }
 
 .btn-confirm:hover {
