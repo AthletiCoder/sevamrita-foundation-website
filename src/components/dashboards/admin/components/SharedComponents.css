@@ -5,11 +5,11 @@
 
 /* CSS Variables */
 :root {
-    --stat-primary: var(--color-primary, #2563eb);
+    --stat-primary: var(--color-primary, #C98900);
     --stat-success: var(--color-success, #10b981);
-    --stat-warning: var(--color-accent, #f59e0b);
+    --stat-warning: var(--color-accent, #2563eb);
     --stat-danger: #ef4444;
-    --stat-info: #3b82f6;
+    --stat-info: var(--color-primary, #C98900);
     --stat-secondary: var(--color-text-secondary, #6b7280);
 
     --bg-light: #f9fafb;
@@ -83,7 +83,7 @@
 }
 
 .stat-card-primary .stat-icon {
-    background: rgba(37, 99, 235, 0.1);
+    background: color-mix(in srgb, var(--color-primary) 12%, transparent);
     color: var(--stat-primary);
 }
 
@@ -179,7 +179,7 @@
 }
 
 .badge-primary {
-    background: rgba(37, 99, 235, 0.1);
+    background: color-mix(in srgb, var(--color-primary) 12%, transparent);
     color: var(--stat-primary);
 }
 
@@ -388,7 +388,7 @@
 .data-table-search input:focus {
     outline: none;
     border-color: var(--stat-primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 18%, transparent);
 }
 
 .data-table-info {
@@ -539,7 +539,7 @@
 .widget-header {
     padding: 1rem 1.5rem;
     background: var(--gradient-primary);
-    color: white;
+    color: var(--color-on-primary);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -555,7 +555,8 @@
 }
 
 .widget-badge {
-    background: rgba(255, 255, 255, 0.2);
+    background: color-mix(in srgb, var(--color-on-primary) 16%, transparent);
+    color: var(--color-on-primary);
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
     font-size: 0.875rem;
@@ -563,9 +564,9 @@
 }
 
 .widget-refresh {
-    background: rgba(255, 255, 255, 0.2);
+    background: color-mix(in srgb, var(--color-on-primary) 16%, transparent);
     border: none;
-    color: white;
+    color: var(--color-on-primary);
     padding: 0.5rem;
     border-radius: 50%;
     cursor: pointer;

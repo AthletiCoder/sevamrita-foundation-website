@@ -1,203 +1,250 @@
-/* Stat Cards Layout */
-.stat-cards-row {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--spacing-lg);
-  align-items: stretch;
-  width: 100%;
-}
+/* Merged Our Impact section — hero metrics + compact program rows */
 
-.stat-card-col {
-  display: flex;
-  min-width: 0;
-}
-
-.stat-cards-row .card-stats {
-  width: 100%;
-  flex: 1;
+.landing-impact {
   display: flex;
   flex-direction: column;
-  height: 100%;
-}
-
-.stat-cards-row .card-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.stat-card-inner {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-}
-
-.stat-card-text {
+  gap: var(--spacing-2xl);
+  width: 100%;
   min-width: 0;
+  text-align: center;
 }
 
-/* Card styling */
-.card-stats {
-  border: none;
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
-  transition: all var(--transition-base);
-  background: var(--color-surface);
-  overflow: hidden;
-  height: 100%;
+.landing-impact-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  max-width: 36rem;
 }
 
-.card-stats:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-xl);
-}
-
-.card-stats .card-body {
-  padding: 1.5rem;
-}
-
-.card-stats .h2 {
+.landing-impact-title {
   font-family: var(--font-accent);
-  color: var(--color-text-primary);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
   font-weight: 700;
-  margin-bottom: 0.5rem;
-  font-size: 2rem;
-  line-height: 1.1;
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.2;
 }
 
-.card-stats .card-title {
-  color: var(--color-text-secondary) !important;
+.landing-impact-tagline {
   font-family: var(--font-primary);
-  font-weight: 500;
-  font-size: 0.875rem;
-  letter-spacing: 0.5px;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.4;
 }
 
-.icon-shape {
-  width: 3rem;
-  height: 3rem;
+/* —— Hero metrics (no card chrome) —— */
+.impact-hero {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--spacing-xl);
+  width: 100%;
+  max-width: 56rem;
+  align-items: start;
+}
+
+.impact-hero-stat {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  min-width: 0;
+}
+
+.impact-hero-icon {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
-  color: white;
-  font-size: 1.25rem;
-  box-shadow: var(--shadow-md);
-  transition: all var(--transition-base);
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-size: 1.1rem;
+}
+
+.impact-hero-value {
+  font-family: var(--font-accent);
+  font-size: clamp(2.75rem, 6.5vw, 4.25rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.impact-hero-label {
+  font-family: var(--font-primary);
+  font-size: clamp(0.8rem, 1.4vw, 0.95rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  max-width: 12rem;
+  line-height: 1.35;
+}
+
+/* —— Program groups —— */
+.impact-groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  width: 100%;
+  max-width: 48rem;
+}
+
+.impact-group {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  gap: var(--spacing-md) var(--spacing-lg);
+  align-items: baseline;
+  text-align: left;
+  padding-block: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.impact-group:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.impact-group-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-accent);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.impact-group-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  height: 1.65rem;
   flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-size: 0.75rem;
 }
 
-.card-stats:hover .icon-shape {
-  transform: scale(1.1) rotate(10deg);
+.impact-group-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-sm) var(--spacing-xl);
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-/* Gradients for icons */
-.bg-gradient-primary {
-  background: var(--gradient-primary);
+.impact-group-stat {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+  min-width: 0;
 }
 
-.bg-gradient-warning {
-  background: var(--color-accent);
+.impact-group-value {
+  font-family: var(--font-accent);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
 }
 
-.bg-gradient-success {
-  background: var(--gradient-success);
+.impact-group-stat-label {
+  font-family: var(--font-primary);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  line-height: 1.3;
 }
 
-.bg-gradient-info {
-  background: linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%);
-}
+/* Tablet */
+@media (max-width: 900px) {
+  .landing-impact {
+    gap: var(--spacing-xl);
+  }
 
-.bg-gradient-danger {
-  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
-}
+  .impact-hero {
+    gap: var(--spacing-lg);
+  }
 
-/* Floating animation */
-.animate-float-delay-1 {
-  animation: float 6s ease-in-out infinite;
-  animation-delay: 0s;
-}
+  .impact-group {
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    gap: var(--spacing-sm) var(--spacing-md);
+  }
 
-.animate-float-delay-2 {
-  animation: float 6s ease-in-out infinite;
-  animation-delay: 1s;
-}
-
-.animate-float-delay-3 {
-  animation: float 6s ease-in-out infinite;
-  animation-delay: 2s;
-}
-
-.animate-float-delay-4 {
-  animation: float 6s ease-in-out infinite;
-  animation-delay: 1.5s;
-}
-
-.animate-float-delay-5 {
-  animation: float 6s ease-in-out infinite;
-  animation-delay: 2.5s;
-}
-
-/* Background colors */
-.bg-info {
-  background: linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%) !important;
-}
-
-.bg-danger {
-  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
-}
-
-.bg-yellow {
-  background: var(--color-accent) !important;
-}
-
-/* Tablet: 2x2 */
-@media (max-width: 992px) {
-  .stat-cards-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--spacing-md);
+  .impact-group-stats {
+    gap: var(--spacing-sm) var(--spacing-lg);
   }
 }
 
-/* Mobile: 2x2 */
-@media (max-width: 768px) {
-  .stat-cards-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--spacing-sm);
+/* Mobile */
+@media (max-width: 640px) {
+  .landing-impact {
+    gap: var(--spacing-xl);
   }
 
-  .card-stats .card-body {
-    padding: 1rem;
+  .impact-hero {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    max-width: 16rem;
   }
 
-  .card-stats .h2 {
-    font-size: 1.5rem;
+  .impact-hero-value {
+    font-size: clamp(2.5rem, 14vw, 3.25rem);
   }
 
-  .card-stats .card-title {
-    font-size: 0.7rem;
-  }
-
-  .icon-shape {
+  .impact-hero-icon {
     width: 2.4rem;
     height: 2.4rem;
     font-size: 1rem;
   }
 
-  .card-stats:hover {
-    transform: none;
-  }
-}
-
-@media (max-width: 576px) {
-  .card-stats .h2 {
-    font-size: 1.35rem;
+  .impact-hero-label {
+    max-width: none;
   }
 
-  .card-stats .card-title {
-    font-size: 0.65rem;
-    letter-spacing: 0.3px;
+  .impact-groups {
+    gap: 0;
+  }
+
+  .impact-group {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+    padding-block: var(--spacing-md);
+  }
+
+  .impact-group-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary);
+  }
+
+  .impact-group-stats {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .impact-group-value {
+    font-size: 1.05rem;
+  }
+
+  .impact-group-stat-label {
+    font-size: 0.8125rem;
   }
 }

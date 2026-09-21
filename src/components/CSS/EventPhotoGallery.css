@@ -1,0 +1,280 @@
+/* Event photo gallery — scroll-driven mosaic + sticky section nav */
+
+.event-gallery {
+  padding: var(--spacing-3xl) 0 0;
+  background: var(--color-background);
+}
+
+.event-gallery__intro {
+  margin-bottom: var(--spacing-xl);
+}
+
+.event-gallery__nav-wrap {
+  position: sticky;
+  /* Sit flush under header (72) + events subnav (~52) */
+  top: calc(72px + 3.25rem);
+  z-index: 40;
+  background: color-mix(in srgb, var(--color-background) 92%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text-primary) 8%, transparent);
+  margin-bottom: var(--spacing-lg);
+}
+
+.event-gallery__nav {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--spacing-sm);
+  overflow-x: auto;
+  padding: var(--spacing-sm) var(--spacing-md);
+  max-width: 1200px;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.event-gallery__nav-link {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-family: var(--font-primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: 0.45rem 0.75rem 0.35rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+.event-gallery__nav-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.event-gallery__nav-label i {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.event-gallery__nav-track {
+  display: block;
+  width: 100%;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+  overflow: hidden;
+}
+
+.event-gallery__nav-progress {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: var(--color-primary);
+  border-radius: inherit;
+  transition: transform 0.05s linear;
+}
+
+.event-gallery__nav-link:hover,
+.event-gallery__nav-link:focus-visible {
+  color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  outline: none;
+}
+
+.event-gallery__nav-link.is-active {
+  color: var(--color-primary);
+}
+
+.event-gallery__nav-link.is-active .event-gallery__nav-track {
+  background: color-mix(in srgb, var(--color-primary) 22%, transparent);
+}
+
+.event-gallery__section {
+  padding: var(--spacing-2xl) 0 var(--spacing-3xl);
+  /* header + events subnav + gallery nav */
+  scroll-margin-top: 11.5rem;
+}
+
+.event-gallery__section--alt {
+  background: var(--color-surface);
+}
+
+.event-gallery__heading {
+  margin-bottom: var(--spacing-xl);
+  max-width: 36rem;
+}
+
+.event-gallery__heading h3 {
+  font-family: var(--font-accent);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.event-gallery__heading h3 i {
+  color: var(--color-primary);
+  font-size: 0.9em;
+}
+
+.event-gallery__heading p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.event-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--spacing-md);
+}
+
+.event-gallery__tile {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: zoom-in;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  aspect-ratio: 4 / 3;
+  grid-column: span 6;
+  isolation: isolate;
+}
+
+.event-gallery__tile--1,
+.event-gallery__tile--3 {
+  grid-column: span 7;
+  aspect-ratio: 16 / 10;
+}
+
+.event-gallery__tile--2,
+.event-gallery__tile--5 {
+  grid-column: span 5;
+}
+
+.event-gallery__tile--4 {
+  grid-column: span 4;
+  aspect-ratio: 1;
+}
+
+.event-gallery__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.event-gallery__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform-origin: center center;
+  will-change: transform;
+  transition: filter 0.35s ease;
+}
+
+.event-gallery__tile:hover .event-gallery__media img,
+.event-gallery__tile:focus-visible .event-gallery__media img {
+  filter: brightness(1.05) saturate(1.05);
+}
+
+.event-gallery__tile:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.event-gallery__lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  background: color-mix(in srgb, var(--color-text-primary) 78%, transparent);
+  backdrop-filter: blur(6px);
+  cursor: zoom-out;
+}
+
+.event-gallery__lightbox img {
+  max-width: min(96vw, 1100px);
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+  cursor: default;
+}
+
+.event-gallery__lightbox-close {
+  position: absolute;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  width: 2.75rem;
+  height: 2.75rem;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 991px) {
+  .event-gallery__nav-wrap {
+    top: calc(68px + 3.25rem);
+  }
+
+  .event-gallery__section {
+    scroll-margin-top: 11rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .event-gallery__tile,
+  .event-gallery__tile--1,
+  .event-gallery__tile--2,
+  .event-gallery__tile--3,
+  .event-gallery__tile--4,
+  .event-gallery__tile--5 {
+    grid-column: span 6;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 600px) {
+  .event-gallery__tile,
+  .event-gallery__tile--1,
+  .event-gallery__tile--2,
+  .event-gallery__tile--3,
+  .event-gallery__tile--4,
+  .event-gallery__tile--5 {
+    grid-column: span 12;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-gallery__media img {
+    will-change: auto;
+  }
+
+  .event-gallery__nav-progress {
+    transition: none;
+  }
+}

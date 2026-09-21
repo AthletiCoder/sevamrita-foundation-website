@@ -62,7 +62,7 @@
 .card-image-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(37, 99, 235, 0.8) 0%, transparent 100%);
+    background: linear-gradient(to top, color-mix(in srgb, var(--color-primary) 80%, transparent) 0%, transparent 100%);
     opacity: 0;
     transition: opacity 0.4s ease;
 }

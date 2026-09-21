@@ -1,5 +1,19 @@
 /* Why We Do page */
 
+.whywedo-page {
+  --whywedo-icon-bg: color-mix(in srgb, var(--color-primary) 14%, var(--color-surface));
+  --whywedo-icon-fg: var(--color-primary-dark);
+  --whywedo-icon-bg-hover: var(--color-primary);
+  --whywedo-icon-fg-hover: var(--color-surface);
+}
+
+[data-theme="dark"] .whywedo-page {
+  --whywedo-icon-bg: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));
+  --whywedo-icon-fg: var(--color-primary);
+  --whywedo-icon-bg-hover: var(--color-primary);
+  --whywedo-icon-fg-hover: var(--color-background);
+}
+
 .whywedo-section {
   padding: var(--spacing-3xl) 0;
   background: var(--color-background);
@@ -11,9 +25,14 @@
 }
 
 .whywedo-section-inner {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 0 var(--spacing-md);
+  max-width: 1140px;
+  margin-inline: auto;
+  padding-inline: var(--spacing-md);
+}
+
+.whywedo-section-header {
+  max-width: 40rem;
+  margin-block-end: var(--spacing-2xl);
 }
 
 .whywedo-section-eyebrow {
@@ -23,7 +42,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-primary);
-  margin: 0 0 var(--spacing-sm);
+  margin: 0 0 var(--spacing-sm) !important;
 }
 
 .whywedo-section-title {
@@ -32,43 +51,114 @@
   font-weight: 700;
   color: var(--color-text-primary);
   line-height: 1.25;
-  margin: 0 0 var(--spacing-lg);
+  margin: 0 !important;
 }
 
-.whywedo-section-body {
-  margin: 0;
-  font-size: 1.0625rem;
-  line-height: 1.7;
-  color: var(--color-text-secondary);
+.whywedo-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16.5rem), 1fr));
+  gap: var(--spacing-lg);
+  align-items: stretch;
 }
 
-.whywedo-values {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.whywedo-card {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-sm);
+  height: 100%;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
 }
 
-.whywedo-value-title {
+.whywedo-section--alt .whywedo-card {
+  background: var(--color-background);
+}
+
+.whywedo-card:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+  box-shadow: var(--shadow-xl);
+}
+
+.whywedo-card:focus-within {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.whywedo-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-block-end: var(--spacing-xs);
+  border-radius: var(--radius-lg);
+  background: var(--whywedo-icon-bg);
+  color: var(--whywedo-icon-fg);
+  font-size: 1.35rem;
+  line-height: 1;
+  transition:
+    transform var(--transition-base),
+    background-color var(--transition-base),
+    color var(--transition-base);
+}
+
+.whywedo-card-icon i {
+  color: inherit;
+}
+
+.whywedo-card:hover .whywedo-card-icon {
+  transform: scale(1.08);
+  background: var(--whywedo-icon-bg-hover);
+  color: var(--whywedo-icon-fg-hover);
+}
+
+.whywedo-card-title {
   font-family: var(--font-accent);
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--color-text-primary);
-  margin: 0 0 var(--spacing-xs);
+  line-height: 1.35;
+  margin: 0 !important;
 }
 
-.whywedo-value-body {
-  margin: 0;
-  font-size: 1.05rem;
+.whywedo-card-body {
+  margin: 0 !important;
+  font-size: 1rem;
   line-height: 1.65;
   color: var(--color-text-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whywedo-card,
+  .whywedo-card-icon {
+    transition: none;
+  }
+
+  .whywedo-card:hover,
+  .whywedo-card:hover .whywedo-card-icon {
+    transform: none;
+  }
 }
 
 @media (max-width: 768px) {
   .whywedo-section {
     padding: var(--spacing-2xl) 0;
     scroll-margin-top: 80px;
+  }
+
+  .whywedo-section-header {
+    margin-block-end: var(--spacing-xl);
+  }
+
+  .whywedo-card {
+    padding: var(--spacing-lg);
   }
 }

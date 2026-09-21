@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation, useNavigationType } from 'react-router-dom';
-import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import './CSS/LandingPage.css';
 import StatCards from './StatCards';
 import AuthModal from './AuthModal';
+import HeroBackgroundCarousel from './HeroBackgroundCarousel';
 import {
   FOCUS_SECTIONS,
-  WELCOME_HERO_IMAGE,
-  EDUCATION_SECTION_ID,
-  calculateWelcomeHeroLayout,
+  STATS_SECTION_ID,
+  FLAGSHIP_SECTION_ID,
+  SIX_PILLARS_PATH,
 } from '../modules/landing';
 import { scrollToHash } from '../utils/scrollToHash';
 
@@ -18,38 +18,13 @@ function LandingPage() {
   const location = useLocation();
   const navigationType = useNavigationType();
   // Back/forward remounts the route — skip entrance animations so it doesn't look like a refresh.
+  // Note: React Router also reports POP on the very first page load.
   const isReturning = navigationType === 'POP';
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authView, setAuthView] = useState('login');
-  const heroPinRef = useRef(null);
-
-  const { ref: statsRef, inView: statsInView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-    initialInView: isReturning,
-  });
-
-  useEffect(() => {
-    const pin = heroPinRef.current;
-    if (!pin) {
-      return undefined;
-    }
-
-    const applyLayout = () => {
-      const layout = calculateWelcomeHeroLayout(window.innerWidth, window.innerHeight);
-      pin.dataset.heroLayoutMode = layout.mode;
-      pin.style.setProperty('--hero-img-width', `${layout.width}px`);
-      pin.style.setProperty('--hero-img-height', `${layout.height}px`);
-      pin.style.setProperty('--hero-img-right', `${layout.marginRight}px`);
-    };
-
-    applyLayout();
-    window.addEventListener('resize', applyLayout);
-    return () => window.removeEventListener('resize', applyLayout);
-  }, []);
 
   const actionCards = [
-    { id: 1, title: 'Our Events', titleLines: ['Our', 'Events'], icon: 'fas fa-calendar-alt', variant: 'events', path: '/events-calender' },
+    { id: 1, title: 'Our Events', titleLines: ['Our', 'Events'], icon: 'fas fa-calendar-alt', variant: 'events', path: '/events/social' },
     { id: 2, title: 'Offer Donation', titleLines: ['Offer', 'Donation'], icon: 'fas fa-hand-holding-heart', variant: 'donation', path: '/contribute' },
     { id: 3, title: 'Become Volunteer', titleLines: ['Become', 'Volunteer'], icon: 'fas fa-users', variant: 'volunteer', action: 'register' },
   ];
@@ -70,12 +45,14 @@ function LandingPage() {
   };
 
   const handleKnowMore = () => {
-    scrollToHash(`#${EDUCATION_SECTION_ID}`);
+    scrollToHash(`#${STATS_SECTION_ID}`);
   };
 
   return (
-    <div className="landing-page">
-      <section className="hero-modern-section">
+    <div className="landing-page landing-page--hero-carousel">
+      <section className="hero-modern-section hero-modern-section--carousel">
+        <HeroBackgroundCarousel />
+
         <div className="container-custom">
           <div className="hero-grid">
             <div className="hero-left">
@@ -147,54 +124,59 @@ function LandingPage() {
             </div>
           </div>
         </div>
-
-        <div className="hero-visual-spacer" aria-hidden="true" />
-        <div className="hero-sticky-pin" ref={heroPinRef} aria-hidden="true">
-          <img
-            src={WELCOME_HERO_IMAGE.src}
-            alt=""
-            className="hero-visual-img"
-            width={WELCOME_HERO_IMAGE.width}
-            height={WELCOME_HERO_IMAGE.height}
-            decoding="async"
-          />
-        </div>
       </section>
 
-      <section className="stats-section" ref={statsRef}>
+      <section className="stats-section" id={STATS_SECTION_ID}>
         <div className="container-custom">
-          <StatCards inView={statsInView} animate={!isReturning} />
+          <StatCards />
         </div>
       </section>
 
-      {FOCUS_SECTIONS.map((section) => (
-        <section
-          key={section.id}
-          id={section.id}
-          className={`focus-section focus-section--${section.align}`}
-        >
-          <div className="container-custom">
-            <div className="focus-grid">
-              <div className="focus-copy">
-                <h2 className="focus-section-title">{section.title}</h2>
-                <p className="focus-section-subtitle">{section.subtitle}</p>
-                <p className="focus-section-body">{section.body}</p>
-              </div>
-              <div className="focus-media">
-                <img
-                  src={section.image}
-                  alt={section.imageAlt}
-                  className="focus-media-img"
-                  width={600}
-                  height={680}
-                  loading="lazy"
-                  decoding="async"
-                />
+      <section className="flagship-section" id={FLAGSHIP_SECTION_ID}>
+        <div className="container-custom">
+          <h2 className="flagship-section-heading">Flagship volunteering activities</h2>
+        </div>
+
+        {FOCUS_SECTIONS.map((section) => (
+          <section
+            key={section.id}
+            id={section.id}
+            className={`focus-section focus-section--${section.align}`}
+          >
+            <div className="container-custom">
+              <div className="focus-grid">
+                <div className="focus-copy">
+                  <h3 className="focus-section-title">{section.title}</h3>
+                  <p className="focus-section-subtitle">{section.subtitle}</p>
+                  <p className="focus-section-body">{section.body}</p>
+                </div>
+                <div className="focus-media">
+                  <img
+                    src={section.image}
+                    alt={section.imageAlt}
+                    className="focus-media-img"
+                    width={600}
+                    height={680}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      ))}
+          </section>
+        ))}
+
+        <div className="container-custom flagship-cta-wrap">
+          <button
+            type="button"
+            className="flagship-know-more"
+            onClick={() => navigate(SIX_PILLARS_PATH)}
+          >
+            Know more about all activities
+            <i className="fas fa-arrow-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      </section>
 
       <AuthModal
         show={showAuthModal}

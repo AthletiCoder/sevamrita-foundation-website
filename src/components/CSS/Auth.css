@@ -113,7 +113,7 @@
 .form-input-auth:focus {
     border-color: var(--color-primary);
     background: #ffffff;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb), 0.1);
 }
 
 .input-wrapper.has-error .form-input-auth {
@@ -305,7 +305,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
 }
 
 .btn-auth-submit:hover:not(:disabled) {
@@ -480,7 +480,7 @@
 .custom-checkbox input:checked~.checkmark {
     background-color: #3b82f6;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb), 0.1);
 }
 
 .checkmark:after {

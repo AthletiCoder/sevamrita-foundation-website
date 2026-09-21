@@ -76,9 +76,37 @@ function Header() {
     }
   }, [isAuthenticated]);
 
-  const handleToggle = () => {
-    setExpanded(!expanded);
+  const handleToggle = (nextExpanded) => {
+    setExpanded(typeof nextExpanded === 'boolean' ? nextExpanded : !expanded);
   };
+
+  useEffect(() => {
+    if (!expanded) {
+      return undefined;
+    }
+
+    const handlePointerDown = (event) => {
+      const panel = document.getElementById('basic-navbar-nav');
+      const toggle = event.target.closest?.('.header .navbar-toggler');
+      if (panel?.contains(event.target) || toggle) {
+        return;
+      }
+      setExpanded(false);
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setExpanded(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [expanded]);
 
   const handleLinkClick = () => {
     setExpanded(false);
@@ -113,7 +141,7 @@ function Header() {
     } else if (action === 'volunteer') {
       handleRegisterClick();
     } else if (action === 'events') {
-      navigate('/events-calender');
+      navigate('/events/social');
     }
   };
 
@@ -139,6 +167,7 @@ function Header() {
         expand="lg"
         className={`sticky-top header ${hasVisibleActions ? 'scrolled' : ''}`}
         expanded={expanded}
+        onToggle={handleToggle}
         aria-label="Main navigation"
       >
         <Container>
@@ -160,7 +189,17 @@ function Header() {
           </Navbar.Brand>
           <div className="header-mobile-controls">
             <ThemeToggle />
-            <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle} aria-label="Toggle navigation" />
+            <Navbar.Toggle
+              aria-controls="basic-navbar-nav"
+              aria-label={expanded ? 'Close navigation' : 'Open navigation'}
+              className={expanded ? 'is-open' : undefined}
+            >
+              <span className={`header-toggler-icon${expanded ? ' is-open' : ''}`} aria-hidden="true">
+                <span className="header-toggler-bar" />
+                <span className="header-toggler-bar" />
+                <span className="header-toggler-bar" />
+              </span>
+            </Navbar.Toggle>
           </div>
           <Navbar.Collapse id="basic-navbar-nav">
             <HeaderNav onNavigate={handleLinkClick} />
@@ -234,6 +273,7 @@ function Header() {
                   className="header-login-btn rounded-pill px-4"
                   onClick={handleLoginClick}
                 >
+                  <i className="fas fa-right-to-bracket" aria-hidden="true"></i>
                   Log in
                 </Button>
               )}

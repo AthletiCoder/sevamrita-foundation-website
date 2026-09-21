@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { PAGE_COPY, WHY_WE_DO_SECTIONS } from '../modules/whyWeDo';
 import { scrollToHash } from '../utils/scrollToHash';
+import WhyWeDoCard from './WhyWeDoCard';
 import './CSS/WhyWeDo.css';
 
 function WhyWeDo() {
@@ -35,23 +36,23 @@ function WhyWeDo() {
           className={`whywedo-section ${index % 2 === 1 ? 'whywedo-section--alt' : ''}`}
         >
           <div className="whywedo-section-inner">
-            <p className="whywedo-section-eyebrow">{section.title}</p>
-            <h2 className="whywedo-section-title">{section.lead}</h2>
+            <header className="whywedo-section-header">
+              <p className="whywedo-section-eyebrow">{section.title}</p>
+              {section.lead ? (
+                <h2 className="whywedo-section-title">{section.lead}</h2>
+              ) : null}
+            </header>
 
-            {section.body && (
-              <p className="whywedo-section-body">{section.body}</p>
-            )}
-
-            {section.values && (
-              <ul className="whywedo-values">
-                {section.values.map((value) => (
-                  <li key={value.key} className="whywedo-value">
-                    <h3 className="whywedo-value-title">{value.title}</h3>
-                    <p className="whywedo-value-body">{value.description}</p>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <div className="whywedo-card-grid">
+              {section.cards.map((card) => (
+                <WhyWeDoCard
+                  key={card.key}
+                  icon={card.icon}
+                  title={card.title}
+                  description={card.description}
+                />
+              ))}
+            </div>
           </div>
         </section>
       ))}

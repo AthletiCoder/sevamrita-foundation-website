@@ -6,10 +6,9 @@
 
 /* Modern Minimalist Hero */
 .hero-modern-section {
-    --hero-header-offset: 6rem;
     position: relative;
     /* Fill the viewport under the sticky header so bottom-right media isn't under the fold */
-    min-height: calc(100svh - var(--hero-header-offset));
+    min-height: calc(100svh - var(--hero-header-offset, 6rem));
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,6 +16,78 @@
     overflow: visible;
     padding: var(--spacing-3xl) 0 0;
     z-index: 0;
+}
+
+/* Full-bleed carousel hero (sticky single-image backup: docs/welcome-hero-sticky-backup.md) */
+.hero-modern-section--carousel {
+    overflow: visible;
+    padding-bottom: var(--spacing-3xl);
+}
+
+/* Keep header strip opaque (no photo bleeding through translucent nav).
+   Height tracks --hero-header-offset so it shrinks with the compact sticky nav. */
+.landing-page--hero-carousel::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--hero-header-offset, 6rem);
+    background: var(--color-landing-background);
+    z-index: 0;
+    pointer-events: none;
+    transition: height 0.28s ease;
+}
+
+.hero-modern-section--carousel .hero-title-modern {
+    color: #ffffff;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+}
+
+.hero-modern-section--carousel .hero-description-modern {
+    color: rgba(255, 255, 255, 0.92);
+    border-left-color: rgba(255, 255, 255, 0.85);
+}
+
+.hero-modern-section--carousel .hero-know-more {
+    border-color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+}
+
+.hero-modern-section--carousel .hero-know-more:hover,
+.hero-modern-section--carousel .hero-know-more:focus-visible {
+    background: #ffffff;
+    color: #111827;
+    box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.35);
+}
+
+.hero-modern-section--carousel .action-card {
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+}
+
+.hero-modern-section--carousel .action-card--donation,
+.hero-modern-section--carousel .action-card--volunteer,
+.hero-modern-section--carousel .action-card--events {
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+}
+
+.hero-modern-section--carousel .action-card--donation:hover,
+.hero-modern-section--carousel .action-card--volunteer:hover,
+.hero-modern-section--carousel .action-card--events:hover {
+    background: rgba(255, 255, 255, 0.24);
+    border-color: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2), 0 16px 36px rgba(0, 0, 0, 0.28);
+}
+
+.hero-modern-section--carousel .action-icon,
+.hero-modern-section--carousel .action-arrow {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
 }
 
 .hero-modern-section > .container-custom {
@@ -147,15 +218,10 @@
 .hero-know-more:hover,
 .hero-know-more:focus-visible {
     background: var(--color-primary);
-    color: var(--color-surface);
+    color: var(--color-on-primary);
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.3);
+    box-shadow: var(--shadow-primary);
     outline: none;
-}
-
-[data-theme="dark"] .hero-know-more:hover,
-[data-theme="dark"] .hero-know-more:focus-visible {
-    color: var(--color-background);
 }
 
 /* Action Card Stack */
@@ -265,12 +331,63 @@
     transform: translateX(3px);
 }
 
-/* Stats Section — slides up over the sticky welcome image */
+/* Stats Section — slides up over the fixed hero background */
 .stats-section {
+    position: relative;
+    z-index: 2;
+    isolation: isolate;
+    background: var(--color-landing-background);
+    padding: var(--spacing-2xl) 0 var(--spacing-3xl);
+}
+
+/* Flagship volunteering activities */
+.flagship-section {
     position: relative;
     z-index: 2;
     background: var(--color-landing-background);
     padding: var(--spacing-2xl) 0 var(--spacing-3xl);
+}
+
+.flagship-section-heading {
+    font-family: var(--font-accent);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--spacing-xl);
+    line-height: 1.2;
+    text-align: center;
+}
+
+.flagship-cta-wrap {
+    display: flex;
+    justify-content: center;
+    padding-top: var(--spacing-xl);
+}
+
+.flagship-know-more {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--color-primary);
+    background: var(--glass-surface-strong);
+    color: var(--color-primary);
+    border-radius: var(--radius-full);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: background-color var(--transition-base), color var(--transition-base),
+        transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.flagship-know-more:hover,
+.flagship-know-more:focus-visible {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-primary);
+    outline: none;
 }
 
 /* Focus sections (Education / De-addiction) — match welcome height & margins */
@@ -282,6 +399,11 @@
     align-items: center;
     padding: var(--spacing-3xl) 0;
     background: var(--color-landing-background);
+}
+
+.flagship-section .focus-section {
+    min-height: 0;
+    padding: var(--spacing-2xl) 0;
 }
 
 .focus-grid {
@@ -392,7 +514,7 @@
         align-items: center;
     }
 
-    /* Mobile layout structure; image size still driven by calculateWelcomeHeroLayout */
+    /* Mobile: stack copy + actions over full-bleed carousel (no image spacer) */
     .hero-modern-section {
         display: flex;
         flex-direction: column;
@@ -401,39 +523,43 @@
         padding-bottom: var(--spacing-xl);
     }
 
+    .hero-modern-section--carousel {
+        justify-content: space-between;
+        min-height: calc(100svh - var(--hero-header-offset));
+        padding-bottom: var(--spacing-2xl);
+    }
+
     .hero-modern-section > .container-custom {
         display: contents;
+    }
+
+    .hero-modern-section--carousel > .container-custom {
+        display: block;
+        width: 100%;
+        position: relative;
+        z-index: 2;
+        flex: 1 1 auto;
     }
 
     .hero-grid {
         display: contents;
     }
 
+    .hero-modern-section--carousel .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+        min-height: calc(100svh - var(--hero-header-offset) - var(--spacing-2xl));
+        align-content: space-between;
+        padding-bottom: var(--spacing-md);
+    }
+
     .hero-visual-spacer {
-        display: block;
-        order: 2;
-        width: 100%;
-        height: var(--hero-img-height, calc(100vw * 880 / 1193));
-        pointer-events: none;
+        display: none;
     }
 
     .hero-sticky-pin {
-        position: fixed;
-        left: auto;
-        right: var(--hero-img-right, 0px);
-        bottom: 0;
-        justify-content: flex-end;
-        align-items: flex-end;
-        z-index: 0;
-    }
-
-    .hero-visual-img {
-        width: var(--hero-img-width, 100vw);
-        max-width: none;
-        max-height: none;
-        height: var(--hero-img-height, auto);
-        margin: 0;
-        object-position: bottom center;
+        display: none;
     }
 
     .hero-right {
@@ -446,6 +572,20 @@
         width: 100%;
         padding: 0 var(--spacing-md);
         box-sizing: border-box;
+    }
+
+    .flagship-section-heading {
+        text-align: center;
+        margin-bottom: var(--spacing-lg);
+        padding: 0 var(--spacing-md);
+    }
+
+    .flagship-know-more {
+        width: min(100%, 22rem);
+        justify-content: center;
+        text-align: center;
+        font-size: 0.95rem;
+        padding: 0.7rem 1.1rem;
     }
 
     /* Same as phone: three action buttons in one row (incl. near-square widths) */
