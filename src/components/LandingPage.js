@@ -75,7 +75,7 @@ function LandingPage() {
                   <span className="hero-title-line">before self</span>
                 </h1>
                 <p className="hero-description-modern">
-                  Sevamrita, a non-profit formed by IIT-Bombay alumni,
+                  Sevamrita, a non-profit organization,
                   <span className="hero-description-line2"> stands for transformation brought about by rendering selfless service (sevā)</span>
                 </p>
                 <button
