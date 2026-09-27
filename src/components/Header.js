@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Navbar, Container, Button, Dropdown } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
@@ -11,6 +11,9 @@ import {
   resolveVisibleHeaderActions,
   areVisibleActionsEqual,
   shouldAlwaysShowHeaderActions,
+  createHeaderChrome,
+  revealHeaderChrome,
+  createLogoContrast,
 } from '../modules/header';
 import './CSS/Header.css';
 
@@ -18,6 +21,8 @@ function Header() {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const headerRef = useRef(null);
+  const expandedRef = useRef(false);
   const [expanded, setExpanded] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authView, setAuthView] = useState('login');
@@ -25,8 +30,32 @@ function Header() {
 
   const alwaysShowActions = shouldAlwaysShowHeaderActions(location.pathname);
 
+  useEffect(() => {
+    expandedRef.current = expanded;
+    const headerEl = headerRef.current;
+    if (!headerEl) {
+      return;
+    }
+    headerEl.classList.toggle('header--menu-open', expanded);
+    if (expanded) {
+      revealHeaderChrome(headerEl);
+    }
+  }, [expanded]);
+
+  useEffect(() => {
+    const headerEl = headerRef.current;
+    const destroyChrome = createHeaderChrome(headerEl, {
+      isMenuOpen: () => expandedRef.current,
+    });
+    const destroyLogo = createLogoContrast(headerEl);
+    return () => {
+      destroyChrome();
+      destroyLogo();
+    };
+  }, [location.pathname]);
+
   const updateHeaderActions = useCallback(() => {
-    const headerEl = document.querySelector('.header');
+    const headerEl = headerRef.current || document.querySelector('.header');
     const headerBottom = headerEl ? headerEl.getBoundingClientRect().bottom : 96;
 
     const next = resolveVisibleHeaderActions({
@@ -133,7 +162,6 @@ function Header() {
   const handleHeaderAction = (action) => {
     setExpanded(false);
     if (action === 'donate') {
-      // Clear home hash so Back from donate lands at top
       if (location.pathname === '/' && location.hash) {
         navigate({ pathname: '/', hash: '' }, { replace: true });
       }
@@ -164,6 +192,7 @@ function Header() {
   return (
     <>
       <Navbar
+        ref={headerRef}
         expand="lg"
         className={`sticky-top header ${hasVisibleActions ? 'scrolled' : ''}`}
         expanded={expanded}
@@ -224,11 +253,15 @@ function Header() {
 
               {isAuthenticated ? (
                 <Dropdown align="end">
-                  <Dropdown.Toggle variant="outline-primary" className="rounded-pill px-4 d-flex align-items-center gap-2">
-                    <i className="fas fa-user-circle"></i>
-                    <span>{user?.username}</span>
+                  <Dropdown.Toggle
+                    variant="outline-primary"
+                    className="header-account-btn rounded-pill px-4 d-flex align-items-center gap-2"
+                    aria-label={user?.username || 'Account'}
+                  >
+                    <i className="fas fa-user-circle" aria-hidden="true"></i>
+                    <span className="header-account-label">{user?.username}</span>
                     {user?.role && (
-                      <span className={getRoleBadgeClass(user.role)}>
+                      <span className={`header-account-role ${getRoleBadgeClass(user.role)}`}>
                         {user.role}
                       </span>
                     )}
@@ -272,9 +305,11 @@ function Header() {
                   variant="outline-primary"
                   className="header-login-btn rounded-pill px-4"
                   onClick={handleLoginClick}
+                  aria-label="Log in"
+                  title="Log in"
                 >
                   <i className="fas fa-right-to-bracket" aria-hidden="true"></i>
-                  Log in
+                  <span className="header-login-label">Log in</span>
                 </Button>
               )}
 

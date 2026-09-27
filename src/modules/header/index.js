@@ -14,6 +14,9 @@ export {
   ALL_VISIBLE_ACTIONS,
 };
 
+export { createHeaderChrome, revealHeaderChrome } from './headerChrome';
+export { createLogoContrast, detectNavBackdropTone } from './logoContrast';
+
 export function shouldAlwaysShowHeaderActions(pathname) {
   return HEADER_ACTIONS_ALWAYS_VISIBLE_ROUTES.includes(pathname);
 }

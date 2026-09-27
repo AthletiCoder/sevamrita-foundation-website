@@ -1,0 +1,40 @@
+.sp-break {
+  position: relative;
+  min-height: 50svh;
+  display: grid;
+  place-items: center;
+  padding: clamp(4rem, 12vh, 7rem) var(--spacing-lg);
+  background:
+    radial-gradient(
+      ellipse 90% 70% at 50% 50%,
+      #1a3a4a 0%,
+      #102a38 55%,
+      #0a1c26 100%
+    );
+  color: #f7f3ea;
+  text-align: center;
+}
+
+.sp-break__inner {
+  width: min(36rem, 100%);
+}
+
+.sp-break__title {
+  margin: 0 0 var(--spacing-lg);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: #f7f3ea;
+}
+
+.sp-break__subtitle {
+  margin: 0 auto;
+  max-width: 34ch;
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  line-height: 1.65;
+  color: color-mix(in srgb, #f7f3ea 72%, transparent);
+}

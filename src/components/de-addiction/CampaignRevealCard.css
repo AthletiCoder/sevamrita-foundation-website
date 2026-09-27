@@ -1,0 +1,156 @@
+.da-reveal-card {
+  --da-reveal-ink: #12202a;
+  --da-reveal-muted: #4a5c68;
+  --da-reveal-accent: #b87a00;
+  --da-reveal-surface: #ffffff;
+  --da-reveal-border: rgba(18, 32, 42, 0.12);
+  --da-reveal-bullet: var(--da-reveal-accent);
+  --da-reveal-height: 24rem;
+
+  display: flex;
+  flex-direction: column;
+  height: var(--da-reveal-height);
+  max-height: var(--da-reveal-height);
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--da-reveal-surface);
+  border: 1px solid var(--da-reveal-border);
+  box-shadow: 0 10px 28px rgba(18, 32, 42, 0.07);
+  outline: none;
+  cursor: default;
+}
+
+.da-reveal-card--dark {
+  --da-reveal-ink: #f7f3ea;
+  --da-reveal-muted: rgba(247, 243, 234, 0.72);
+  --da-reveal-accent: #f5c518;
+  --da-reveal-surface: rgba(247, 243, 234, 0.06);
+  --da-reveal-border: rgba(247, 243, 234, 0.14);
+  --da-reveal-bullet: #f5c518;
+  box-shadow: none;
+}
+
+.da-reveal-card:focus-visible {
+  box-shadow: 0 0 0 3px rgba(184, 122, 0, 0.35);
+}
+
+.da-reveal-card--dark:focus-visible {
+  box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.4);
+}
+
+.da-reveal-card__media {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  background: #cfc6b6;
+}
+
+.da-reveal-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  transform: scale(1.001);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Dark / mission cards: same cover crop + room to zoom without letterboxing */
+.da-reveal-card--dark .da-reveal-card__media {
+  background: #0c1a24;
+}
+
+.da-reveal-card--dark .da-reveal-card__media img {
+  object-position: center 28%;
+}
+
+.da-reveal-card__body {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1rem 1.15rem 1.2rem;
+  background: var(--da-reveal-surface);
+  z-index: 1;
+  min-height: 0;
+  max-height: 55%;
+}
+
+.da-reveal-card__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin: 0;
+  flex-shrink: 0;
+  font-size: clamp(1.05rem, 1.8vw, 1.22rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--da-reveal-ink);
+  text-align: center;
+}
+
+.da-reveal-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--da-reveal-accent);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.da-reveal-card__points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: left;
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(1.25rem);
+  min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .da-reveal-card__points {
+    height: auto;
+    max-height: 100%;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+}
+
+.da-reveal-card__points li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--da-reveal-muted);
+}
+
+.da-reveal-card__points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: var(--da-reveal-bullet);
+}
+
+@media (max-width: 800px) {
+  .da-reveal-card {
+    --da-reveal-height: 20rem;
+  }
+}

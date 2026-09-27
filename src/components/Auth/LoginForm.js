@@ -144,21 +144,6 @@ const LoginForm = ({ onSuccess }) => {
                 )}
             </button>
 
-            <div className="divider">
-                <span>or continue with</span>
-            </div>
-
-            <div className="social-login">
-                <button type="button" className="social-btn google">
-                    <i className="fab fa-google"></i>
-                </button>
-                <button type="button" className="social-btn facebook">
-                    <i className="fab fa-facebook-f"></i>
-                </button>
-                <button type="button" className="social-btn twitter">
-                    <i className="fab fa-twitter"></i>
-                </button>
-            </div>
         </form>
     );
 };

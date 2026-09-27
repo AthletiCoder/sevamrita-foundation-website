@@ -21,6 +21,10 @@
     --hero-header-offset: 4.5rem;
 }
 
+.App:has(.header.header--hidden) {
+    --hero-header-offset: 3.5rem;
+}
+
 @media (max-width: 991px) {
     .App {
         --hero-header-offset: 4.75rem;
@@ -28,6 +32,10 @@
 
     .App:has(.header.scrolled) {
         --hero-header-offset: 4.25rem;
+    }
+
+    .App:has(.header.header--hidden) {
+        --hero-header-offset: 3.2rem;
     }
 }
 
@@ -123,4 +131,9 @@
 
 .App {
     animation: fadeInContent 0.01s ease-out;
+}
+
+/* Campaign pages keep the global header; site footer stays omitted */
+.App--campaign {
+    background: transparent;
 }

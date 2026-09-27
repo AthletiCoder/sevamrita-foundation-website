@@ -15,7 +15,7 @@ function NavLabel({ icon, label }) {
   return (
     <span className="header-nav-label">
       <NavGlyph icon={icon} />
-      <span>{label}</span>
+      <span className="header-nav-text">{label}</span>
     </span>
   );
 }
@@ -170,6 +170,7 @@ function HeaderNav({ onNavigate }) {
               target={item.external ? '_blank' : undefined}
               rel={item.external ? 'noopener noreferrer' : undefined}
               onClick={(event) => handleParentClick(event, item)}
+              aria-label={item.label}
             >
               <NavLabel icon={item.icon} label={item.label} />
               {item.children && <i className="fas fa-chevron-down header-nav-caret" aria-hidden="true"></i>}

@@ -1,38 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import Pillars from './Pillars';
+import SixPillars from './six-pillars/SixPillars';
+import { createSmoothScroll } from '../modules/scroll';
+import { PILLARS, scrollToPillarIndex } from '../modules/pillars';
 import { scrollToHash } from '../utils/scrollToHash';
 
 const WhatWeDo = () => {
   const location = useLocation();
+  const lenisRef = useRef(null);
+
+  useEffect(() => {
+    lenisRef.current = createSmoothScroll({
+      duration: 1.45,
+      wheelMultiplier: 0.85,
+      touchMultiplier: 0.9,
+    });
+    return () => {
+      lenisRef.current?.destroy();
+      lenisRef.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     if (!location.hash) {
       return undefined;
     }
 
+    const id = location.hash.replace(/^#/, '');
+    const pillarIndex = PILLARS.findIndex((pillar) => pillar.id === id);
+
     const timeoutId = window.setTimeout(() => {
-      scrollToHash(location.hash);
-    }, 80);
+      if (pillarIndex >= 0) {
+        scrollToPillarIndex(pillarIndex, PILLARS.length);
+      } else {
+        scrollToHash(location.hash);
+      }
+    }, 120);
 
     return () => window.clearTimeout(timeoutId);
   }, [location.hash]);
 
-  return (
-    <div className="whatwedo-page">
-      <section className="page-hero">
-        <div className="page-hero-content">
-          <h1 className="page-title">
-            Six Pillars of Service
-          </h1>
-          <p className="page-subtitle">
-            Dedicated initiatives focusing on holistic development and support for the underprivileged.
-          </p>
-        </div>
-      </section>
-      <Pillars />
-    </div>
-  );
+  return <SixPillars />;
 };
 
 export default WhatWeDo;

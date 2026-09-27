@@ -1,13 +1,30 @@
 /**
  * Six Pillars of Service — content and images for the What We Do page.
+ * Titles: Sanskrit name + short English label (1–2 words).
+ * Body copy, lists, stats, and images are preserved as source of truth.
  */
 
 const IMG = (file) => `/images/6_pillar/${file}`;
+
+export const PAGE = {
+  brand: 'Sevamrita Foundation',
+  intro: {
+    title: 'Six Pillars of Service',
+    subtitle:
+      'Dedicated initiatives focusing on holistic development and support for the underprivileged.',
+  },
+  missionBreak: {
+    title: 'Six Pillars of Service',
+    subtitle:
+      'Dedicated initiatives focusing on holistic development and support for the underprivileged.',
+  },
+};
 
 export const PILLARS = [
   {
     id: 'shikshamrita',
     title: 'Shikshamrita',
+    english: 'Education',
     description: [
       `The initiative undertaken by the NGO in underprivileged schools stands as a vital instrument of social upliftment, offering comprehensive support that extends well beyond conventional education. The programme delivers high-quality instruction within a structured, well-rounded curriculum, guided by dedicated educators committed to fostering both the intellectual and emotional development of each child.`,
       `In addressing fundamental needs, the schools provide regular mid-day meals, thereby ensuring that students receive adequate nutrition—an essential component for effective learning and overall well-being. Through Annamrita, our goal is to support these schools in mid-day meals as well.`,
@@ -18,7 +35,7 @@ export const PILLARS = [
   {
     id: 'annamrita',
     title: 'Annamrita',
-    subtitle: '(and other basic needs)',
+    english: 'Basic Needs',
     description: [
       `The NGO extends an unwavering commitment to supporting the poor and underprivileged residing in villages, slums, and economically disadvantaged areas. It provides essential aid to help meet their fundamental needs.`,
       `A key aspect of this support is the regular distribution of nutritious meals, and that every person is treated with dignity. In addition to food, the NGO occasionally distributes unused clothing to those in need, offering further relief and comfort.`,
@@ -30,7 +47,7 @@ export const PILLARS = [
   {
     id: 'charitamrita',
     title: 'Charitamrita',
-    subtitle: '(Youth empowerment)',
+    english: 'Youth',
     description: [`Our key focus areas are:`],
     listItems: [
       'Skill development',
@@ -48,7 +65,7 @@ export const PILLARS = [
   {
     id: 'dharamrita',
     title: 'Dharamrita',
-    subtitle: '(Environment protection)',
+    english: 'Environment',
     description: [
       `Sevamrita Foundation is deeply committed to the protection and preservation of the environment through a range of proactive and sustainable initiatives. Our environmental programs promote ecological responsibility, enhance the natural beauty of our surroundings, and encourage community participation.`,
       `A central component of our efforts is our tree plantation drives, which are conducted in both urban and rural settings. These initiatives aim to combat deforestation, improve air quality, and create green, breathable spaces that benefit local communities.`,
@@ -60,7 +77,7 @@ export const PILLARS = [
   {
     id: 'gramamrita',
     title: 'Gramamrita',
-    subtitle: 'Rural & Tribal Empowerment',
+    english: 'Rural Care',
     description: [
       `Gramamrita focuses on empowering rural and tribal communities through education, essential support, and sustained community engagement. We work alongside schools and local groups in underserved areas to expand learning opportunities and strengthen everyday wellbeing.`,
     ],
@@ -76,7 +93,7 @@ export const PILLARS = [
   {
     id: 'arogyamrita',
     title: 'Arogyamrita',
-    subtitle: 'Healthcare, Hygiene & Community Wellbeing',
+    english: 'Health',
     description: [
       `Arogyamrita promotes community health through yoga, hygiene awareness, and everyday wellbeing practices. Through programmes like International Yoga Day, we introduce participants to yoga and pranayama while supporting safe hydration with reusable steel water bottles.`,
     ],
@@ -90,3 +107,9 @@ export const PILLARS = [
     alt: 'Arogyamrita — community yoga and wellness',
   },
 ];
+
+/** First half of the journey (before MissionBreak). */
+export const PILLARS_ACT_ONE = PILLARS.slice(0, 3);
+
+/** Second half of the journey (after MissionBreak). */
+export const PILLARS_ACT_TWO = PILLARS.slice(3);

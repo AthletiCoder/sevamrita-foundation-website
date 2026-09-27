@@ -41,9 +41,8 @@
 .header .navbar-brand {
   display: block;
   position: relative;
-  /* Lock brand box so theme logo swap can't resize the navbar — 90% of prior 64px height */
-  width: calc(320 / 80 * 57.6px);
-  height: 57.6px;
+  width: calc(320 / 80 * 62px);
+  height: 62px;
   flex-shrink: 0;
   padding-top: 0;
   padding-bottom: 0;
@@ -51,8 +50,8 @@
 }
 
 .header.scrolled .navbar-brand {
-  width: calc(320 / 80 * 46px);
-  height: 46px;
+  width: calc(320 / 80 * 52px);
+  height: 52px;
 }
 
 .header .navbar-brand img {
@@ -63,6 +62,17 @@
   max-height: none;
   object-fit: contain;
   object-position: left center;
+  transition: opacity 0.25s ease, filter 0.25s ease;
+}
+
+/* Navy mark (for light backdrops): deepen ink */
+.header .header-logo--light {
+  filter: brightness(0.62) contrast(1.4);
+}
+
+/* Cream mark (for dark backdrops): lift brightness */
+.header .header-logo--dark {
+  filter: brightness(1.18) contrast(1.12);
 }
 
 .header-logo--dark {
@@ -74,6 +84,23 @@
 }
 
 [data-theme="dark"] .header-logo--dark {
+  display: inline-block !important;
+}
+
+/* Backdrop-aware logo: overrides theme when we know what's behind the brand */
+.header.header--over-dark .header-logo--light {
+  display: none !important;
+}
+
+.header.header--over-dark .header-logo--dark {
+  display: inline-block !important;
+}
+
+.header.header--over-light .header-logo--dark {
+  display: none !important;
+}
+
+.header.header--over-light .header-logo--light {
   display: inline-block !important;
 }
 
@@ -269,6 +296,93 @@
   white-space: nowrap;
 }
 
+.header-login-label,
+.header-account-label {
+  display: inline;
+}
+
+.header-account-role {
+  display: inline-flex;
+}
+
+/* Mid-width desktop: icon-only TOP-LEVEL labels (dropdown menus keep full text) */
+@media (min-width: 992px) and (max-width: 1299px) {
+  .header .navbar-nav > .header-nav-item > .nav-link .header-nav-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .header .navbar-nav > .header-nav-item > .nav-link {
+    padding: 0.5rem 0.7rem !important;
+  }
+
+  .header .navbar-nav > .header-nav-item > .nav-link .header-nav-icon {
+    font-size: 1.05rem;
+  }
+
+  .header-login-label,
+  .header-account-label,
+  .header-account-role {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .header .header-login-btn,
+  .header .header-account-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0 !important;
+    justify-content: center;
+    gap: 0;
+    border-radius: var(--radius-full);
+  }
+
+  .header-action-btn.is-visible:hover .header-action-label,
+  .header-action-btn.is-visible:focus-visible .header-action-label {
+    max-width: 0;
+    opacity: 0;
+    margin-inline-start: 0;
+  }
+
+  .header-action-btn.is-visible:hover,
+  .header-action-btn.is-visible:focus-visible {
+    padding: 0 0.65rem;
+  }
+}
+
+/* Collapsed chrome: no bar — logo stays top-left and clickable */
+.header.header--hidden {
+  border-color: transparent !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  pointer-events: none;
+}
+
+.header.header--hidden .navbar-brand {
+  pointer-events: auto;
+}
+
+.header.header--hidden .navbar-collapse,
+.header.header--hidden .header-mobile-controls {
+  pointer-events: none !important;
+}
+
 .theme-toggle-btn {
   display: inline-flex;
   align-items: center;
@@ -313,8 +427,8 @@
   }
 
   .header.scrolled .navbar-brand {
-    width: 156px;
-    height: 50px;
+    width: calc(320 / 80 * 52px);
+    height: 52px;
   }
 
   .header .container {
@@ -327,8 +441,8 @@
   .header .navbar-brand {
     order: 1;
     margin-right: 0;
-    width: 172px;
-    height: 55px;
+    width: calc(320 / 80 * 58px);
+    height: 58px;
   }
 
   .header-mobile-controls {

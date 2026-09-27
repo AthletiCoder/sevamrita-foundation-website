@@ -1,0 +1,139 @@
+.da-hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-items: end;
+  justify-items: center;
+  overflow: hidden;
+  color: #f7f3ea;
+  text-align: center;
+}
+
+.da-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.da-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+  transform: scale(1.04);
+  animation: da-hero-ken 18s ease-out forwards;
+}
+
+.da-hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 18, 28, 0.35) 0%, rgba(8, 18, 28, 0.55) 42%, rgba(8, 18, 28, 0.9) 100%);
+}
+
+.da-hero__content {
+  position: relative;
+  z-index: 1;
+  width: min(720px, calc(100% - 2.5rem));
+  margin: 0 auto;
+  padding:
+    calc(var(--hero-header-offset, 6rem) + clamp(2.5rem, 8vh, 5rem))
+    1.25rem
+    clamp(3rem, 8vh, 5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: da-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.da-hero__brand {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-title);
+  font-size: clamp(1.65rem, 3.5vw, 2.35rem);
+  letter-spacing: 0.02em;
+  color: #f5c518;
+  line-height: 1.1;
+}
+
+.da-hero__title {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: clamp(2rem, 5.5vw, 3.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  max-width: 14ch;
+}
+
+.da-hero__tagline {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 500;
+  color: rgba(247, 243, 234, 0.92);
+  letter-spacing: 0.01em;
+}
+
+.da-hero__swap {
+  display: inline-block;
+  min-width: 4.2em;
+  text-align: left;
+  color: #f5c518;
+  font-weight: 700;
+  will-change: transform, opacity;
+}
+
+.da-hero__subtitle {
+  margin: 0 0 1.75rem;
+  font-size: 0.95rem;
+  color: rgba(247, 243, 234, 0.72);
+  max-width: 36ch;
+}
+
+.da-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 1rem;
+}
+
+@keyframes da-hero-ken {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes da-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .da-hero__image,
+  .da-hero__content {
+    animation: none;
+  }
+
+  .da-hero__image {
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .da-hero__content {
+    padding-bottom: 3.5rem;
+  }
+
+  .da-hero__title {
+    max-width: none;
+  }
+}

@@ -118,6 +118,7 @@ export const HEADER_ACTIONS_ALWAYS_VISIBLE_ROUTES = [
   '/events-calender',
   '/resources',
   '/contact',
+  '/de-addiction',
 ];
 
 export const EMPTY_VISIBLE_ACTIONS = {
