@@ -28,30 +28,49 @@ export const HERO = {
 export const THE_NEED = {
   id: 'the-need',
   title: 'The Need',
-  lead: "Our goal isn prohibition — it's liberation.",
+  lead: "Our goal is liberation.",
   quote:
     'We want young minds to rediscover joy beyond screens, cigarettes, and alcohol. Through creativity, community, and conscious living, we aim to awaken self-control and pride in a clear, addiction-free life.',
   stats: [
     {
       value: '9%',
-      label: 'Indian adolescents (ages 13–17) have tried smoking or vaping.',
+      title: 'Young Lungs. Old Habits.',
+      line: 'of adolescents aged 13–17 have tried smoking or vaping',
       icon: 'fas fa-smoking',
+      image: {
+        src: '/images/landing-carousel/smoking.jpeg',
+        alt: 'Smoking awareness',
+      },
     },
     {
       value: '20%',
-      label: 'Teens in urban India have been exposed to alcohol before age 18.',
+      title: 'Youth Lost in the Bottle',
+      line: 'of urban teens have had alcohol before turning 18',
       icon: 'fas fa-wine-bottle',
+      image: {
+        src: '/images/landing-carousel/drinking.jpeg',
+        alt: 'Alcohol awareness',
+      },
     },
     {
-      value: '6.5 hrs/day',
-      label: 'Average screen time among students in India.',
+      value: '6.5 hrs',
+      title: 'Life Shrunk Behind the Screen',
+      line: 'a day — average screen time for students in India',
       icon: 'fas fa-mobile-alt',
+      image: {
+        src: '/images/landing-carousel/high_screen_time.jpg',
+        alt: 'Screen time awareness',
+      },
     },
     {
       value: '60%',
-      label:
-        'School students report anxiety or restlessness when away from their phones for a few hours.',
+      title: 'Can not Live Without the Phone',
+      line: 'of school students feel anxious without their phones',
       icon: 'fas fa-heartbeat',
+      image: {
+        src: '/images/landing-carousel/phone_addiction.jpg',
+        alt: 'Phone anxiety awareness',
+      },
     },
   ],
   sourcesNote:
@@ -79,8 +98,8 @@ export const MISSION = {
     {
       title: 'Reaching Those in Need',
       body: [
-        'Reach needy and impoverished communities through distribution of essential supplies.',
-        'Use these interactions as an opportunity to connect, educate and spread de-addiction awareness.',
+        'Reach needy communities through essential supplies.',
+        'Connect, educate and spread de-addiction awareness.',
       ],
       icon: 'fas fa-hand-holding-heart',
       image: {
@@ -91,8 +110,8 @@ export const MISSION = {
     {
       title: 'Schools & Colleges',
       body: [
-        'Conduct moral education and career-building seminars in schools and colleges.',
-        'Reach young minds with awareness, guidance and positive alternatives.',
+        'Conduct moral education and career-building seminars.',
+        'Inspire young minds through awareness and guidance.',
       ],
       icon: 'fas fa-graduation-cap',
       image: {
@@ -151,10 +170,10 @@ export const AWARENESS_TO_ACTION = {
   id: 'awareness-to-action',
   title: 'From Awareness to Action',
   subtitle:
-    'Our corporate wing of De-addiction Awareness — we conduct campus DEAAC in this format.',
+    'Our corporate wing of De-addiction awareness — we conduct campus De-addiction awareness sessions in this format.',
   image: {
     src: '/images/landing-carousel/04.webp',
-    alt: 'Campus DEAAC awareness session in progress',
+    alt: 'Campus de-addiction awareness session in progress',
     width: 800,
     height: 1000,
   },
@@ -176,7 +195,7 @@ export const AWARENESS_TO_ACTION = {
       icon: 'fas fa-hand-holding-heart',
     },
     {
-      label: 'Become part of the movement',
+      label: 'Become a part of the movement',
       icon: 'fas fa-users',
     },
   ],

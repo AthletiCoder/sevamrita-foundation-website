@@ -75,7 +75,8 @@ export function bindRevealCards(scope, selector = '.da-reveal-card') {
 
   const mm = gsap.matchMedia();
 
-  mm.add('(hover: hover) and (pointer: fine)', () => {
+  // Desktop / wide: hover expand
+  mm.add('(min-width: 801px) and (hover: hover) and (pointer: fine)', () => {
     const cleanups = cards.map((card) => {
       const tl = createCardTimeline(card);
       if (!tl) return () => {};
@@ -106,7 +107,8 @@ export function bindRevealCards(scope, selector = '.da-reveal-card') {
     return () => cleanups.forEach((fn) => fn());
   });
 
-  mm.add('(hover: none), (pointer: coarse)', () => {
+  // Stacked / touch layouts: mid-viewport scroll reveal (same as Mission & Approach)
+  mm.add('(max-width: 800px), (hover: none), (pointer: coarse)', () => {
     const triggers = cards
       .map((card) => {
         const tl = createCardTimeline(card);

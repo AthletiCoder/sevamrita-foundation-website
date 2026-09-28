@@ -82,7 +82,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.55rem;
   margin: 0;
   flex-shrink: 0;
   font-size: clamp(1.05rem, 1.8vw, 1.22rem);
@@ -91,6 +92,16 @@
   line-height: 1.3;
   color: var(--da-reveal-ink);
   text-align: center;
+}
+
+.da-reveal-card__stat {
+  color: var(--da-reveal-accent);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.da-reveal-card__title-text {
+  font-weight: 600;
 }
 
 .da-reveal-card__icon {
@@ -147,6 +158,56 @@
   height: 0.38rem;
   border-radius: 50%;
   background: var(--da-reveal-bullet);
+}
+
+/* Need stats — danger reveal: icon + number (left) | line (right) */
+.da-reveal-card--danger .da-reveal-card__title {
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+}
+
+.da-reveal-card__danger {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 0.85rem;
+  row-gap: 0.15rem;
+  align-items: center;
+  text-align: left;
+  color: #b71c1c;
+}
+
+.da-reveal-card__danger-icon {
+  grid-column: 1;
+  grid-row: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+  line-height: 1;
+  color: #c62828;
+}
+
+.da-reveal-card__danger-stat {
+  grid-column: 1;
+  grid-row: 2;
+  font-size: clamp(1.35rem, 2.8vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: #c62828;
+  text-align: center;
+}
+
+.da-reveal-card__danger-line {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  color: #b71c1c;
+  max-width: none;
+  align-self: center;
 }
 
 @media (max-width: 800px) {

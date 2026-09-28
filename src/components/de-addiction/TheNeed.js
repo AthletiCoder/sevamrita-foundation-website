@@ -5,7 +5,9 @@ import {
   THE_NEED,
   revealOnScroll,
   animateNeedLead,
+  bindRevealCards,
 } from '../../modules/deAddiction';
+import CampaignRevealCard from './CampaignRevealCard';
 import './TheNeed.css';
 
 gsap.registerPlugin(useGSAP);
@@ -20,13 +22,16 @@ function TheNeed() {
         from: { opacity: 0, y: 28 },
         start: 'top 85%',
       });
-      revealOnScroll('.da-need__stat', {
+      revealOnScroll('.da-need__stats > li', {
         scope: sectionRef.current,
         from: { opacity: 0, y: 56 },
         start: 'top 90%',
         duration: 0.9,
       });
       animateNeedLead(sectionRef.current);
+
+      const mm = bindRevealCards(sectionRef.current);
+      return () => mm?.revert();
     },
     { scope: sectionRef }
   );
@@ -62,12 +67,16 @@ function TheNeed() {
 
         <ul className="da-need__stats">
           {THE_NEED.stats.map((stat) => (
-            <li key={stat.value} className="da-need__stat">
-              <span className="da-need__icon" aria-hidden="true">
-                <i className={stat.icon} />
-              </span>
-              <p className="da-need__value">{stat.value}</p>
-              <p className="da-need__label">{stat.label}</p>
+            <li key={stat.title}>
+              <CampaignRevealCard
+                title={stat.title}
+                stat={stat.value}
+                icon={stat.icon}
+                image={stat.image}
+                line={stat.line}
+                tone="light"
+                variant="danger"
+              />
             </li>
           ))}
         </ul>
