@@ -45,16 +45,7 @@ export const teamMembers = [
       'Hemant Kumar is the Chief Finance Officer at Sevamrita Foundation. With a strong background in finance and technology, Hemant ensures the financial stability and growth of the organization. Currently working in Indian Railways, he brings a wealth of experience and expertise to the foundation.',
     email: 'Hemanth@sevamrita.org',
   },
-  {
-    name: 'Satyam Raj',
-    designation: 'Marketing Lead',
-    education: 'IIT Bombay, Mechanical Engineering',
-    imageSrc: '/images/SatyamRaj.jpeg',
-    description:
-      'Satyam is a Mechanical Engineer from IIT Bombay with diverse experience spanning engineering and social impact. He currently leads Marketing at Sevamrita Foundation, where he drives corporate volunteering projects, fundraising, and large-scale NGO event execution. His prior role as Proposal Engineer at TECHNOMAK (Dubai) involved preparing technical and commercial bids for international oil and gas treatment projects, contributing to tenders won in Iraq and Qatar. He has also undertaken research at DRDO’s Defence Research and Development Laboratory and product development internships in India. Satyam combines technical expertise with a passion for social impact, leveraging his engineering background to design and deliver sustainable community initiatives.',
-    linkedIn: 'https://www.linkedin.com/in/satyam-raj-85a04718b/',
-    email: 'satyam@sevamrita.org',
-  },
+  
   {
     name: 'Divyashree Chavhan',
     designation: 'Web and Infra Lead',
@@ -84,16 +75,6 @@ export const teamMembers = [
       'Madhu brings strong expertise in supply chain finance and operations optimization, currently serving as Manager at Wakefit. His work focuses on streamlining financial processes, enhancing operational efficiency, and driving sustainable growth across diverse regions in India. Madhu is pursuing his MBA at the Indian Institute of Management (IIM) Mumbai, equipping him with advanced management and analytical skills to complement his industry experience.',
     linkedIn: 'https://www.linkedin.com/in/madhu-r-a05520240/',
     email: 'madhu@sevamrita.org',
-  },
-  {
-    name: 'Rana Pratap Thanneeru',
-    designation: 'Partnerships Lead',
-    education: 'IIT Bombay, Computer Science',
-    imageSrc: '/images/Rana_Pratap.jpeg',
-    description:
-      'Rana Pratap has over 8 years of experience in distributed systems and backend engineering, specializing in scalable APIs, cloud-native applications, and high-performance data workflows. He has worked with organizations such as Bridgenext, MonetizeMore, Dr. Shikha’s NutriHealth, and FogHorn Systems, delivering resilient backend services using FastAPI, Flask, Spring Boot, PostgreSQL, Redis, and AWS. His expertise spans asynchronous processing, SaaS analytics platforms, and AI-driven orchestration services. Rana holds a B.Tech in Computer Science from the Indian Institute of Technology (IIT) Bombay.',
-    linkedIn: 'https://www.linkedin.com/in/ranasrpt/',
-    email: 'ranapratap@sevamrita.org',
   },
 ];
 
