@@ -105,7 +105,7 @@ function Footer() {
               Quick Links
             </h2>
             <ul className="footer-link-list">
-              {FOOTER_QUICK_LINKS.map((item) => (
+              {FOOTER_QUICK_LINKS.filter((item) => !item.hidden).map((item) => (
                 <li key={item.key}>
                   <FooterQuickLink item={item} />
                 </li>

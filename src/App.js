@@ -14,7 +14,8 @@ const Story = lazy(() => import('./components/Story'));
 const Contribute = lazy(() => import('./components/Contribute'));
 const DonationThankYou = lazy(() => import('./components/donate/DonationThankYou'));
 const Contact = lazy(() => import('./components/Contact'));
-const Team = lazy(() => import('./components/Team'));
+// Team page temporarily hidden — restore import + route when ready to show again.
+// const Team = lazy(() => import('./components/Team'));
 const WhatWeDo = lazy(() => import('./components/WhatWeDo'));
 const WhyWeDo = lazy(() => import('./components/WhyWeDo'));
 const EventsSocial = lazy(() => import('./components/EventsSocial'));
@@ -59,7 +60,8 @@ function App() {
               <Route path="/events" element={<Navigate to="/events/social" replace />} />
               <Route path="/contribute" element={<Contribute />} />
               <Route path="/contribute/thank-you" element={<DonationThankYou />} />
-              <Route path="/team" element={<Team />} />
+              {/* Team temporarily hidden — restore <Team /> when ready. */}
+              <Route path="/team" element={<Navigate to="/" replace />} />
               <Route path="/testimonials" element={<TestimonialsPage />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/contact" element={<Contact />} />
