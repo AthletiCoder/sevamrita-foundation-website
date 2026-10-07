@@ -100,7 +100,12 @@ function HeaderNav({ onNavigate }) {
   };
 
   const renderChild = (child, itemKey) => {
+    if (child.hidden) {
+      return null;
+    }
+
     if (child.children?.length) {
+      const visibleNested = child.children.filter((nested) => !nested.hidden);
       return (
         <div key={child.key} className="header-nav-subitem">
           {child.path ? (
@@ -119,7 +124,7 @@ function HeaderNav({ onNavigate }) {
             </span>
           )}
           <div className="dropdown-menu header-nav-submenu">
-            {child.children.map((nested) => renderChild(nested, itemKey))}
+            {visibleNested.map((nested) => renderChild(nested, itemKey))}
           </div>
         </div>
       );
@@ -184,7 +189,9 @@ function HeaderNav({ onNavigate }) {
 
           {item.children && (
             <div className="dropdown-menu header-nav-menu">
-              {item.children.map((child) => renderChild(child, item.key))}
+              {item.children
+                .filter((child) => !child.hidden)
+                .map((child) => renderChild(child, item.key))}
             </div>
           )}
         </Nav.Item>

@@ -16,7 +16,8 @@ export const NAV_ITEMS = [
     path: '/',
     icon: 'fas fa-users',
     children: [
-      { key: 'our-team', label: 'Our Team', path: '/team', icon: 'fas fa-user-group' },
+      // Hidden for now — set hidden: false (or remove the flag) to restore.
+      { key: 'our-team', label: 'Our Team', path: '/team', icon: 'fas fa-user-group', hidden: true },
       { key: 'our-journey', label: 'Our Journey', path: '/story', icon: 'fas fa-route' },
       { key: 'contact-us', label: 'Contact Us', path: '/contact', icon: 'fas fa-envelope' },
     ],

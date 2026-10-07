@@ -8,7 +8,7 @@
  */
 export const CONTACT_INFO = {
   registeredOffice:
-    '301, PLOT NO 6, SANGAREDDY, KANDI, Kandi, Sangareddy, Medak- 502285, Telangana',
+    'Sangareddy, Medak- 502285, Telangana',
   phone: '+91 8087650684',
   phoneDigits: '918087650684',
   phoneHref: 'tel:+918087650684',
@@ -99,7 +99,7 @@ export const REGISTERED_OFFICE = {
   title: 'Registered office',
   address: CONTACT_INFO.registeredOffice,
   mapsQuery:
-    '301, PLOT NO 6, SANGAREDDY, KANDI, Sangareddy, Medak 502285, Telangana',
+    'Sangareddy, Medak- 502285, Telangana',
 };
 
 /** Branch offices listed on the contact page. */

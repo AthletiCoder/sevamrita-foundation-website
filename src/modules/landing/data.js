@@ -32,7 +32,6 @@ export const FOCUS_SECTIONS = [
 export const LANDING_HERO_CAROUSEL = [
   { src: '/images/landing-carousel/01.webp', alt: 'Sevamrita community service' },
   { src: '/images/landing-carousel/02.webp', alt: 'Sevamrita volunteers in action' },
-  { src: '/images/landing-carousel/03.webp', alt: 'Sevamrita outreach' },
   { src: '/images/landing-carousel/04.webp', alt: 'Sevamrita field work' },
   { src: '/images/landing-carousel/05.webp', alt: 'Sevamrita community gathering' },
   { src: '/images/landing-carousel/06.webp', alt: 'Sevamrita education support' },

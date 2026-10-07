@@ -19,6 +19,12 @@ export const RESOURCE_SECTIONS = [
     description: 'Yearly overview of our programs, impact, and organizational progress.',
     documents: [
       {
+        label: 'Activity Report 2026',
+        href: '/documents/yearly_reports/Activity_Report_2026.pdf',
+        icon: 'fas fa-file-alt',
+        year: '2026',
+      },
+      {
         label: 'Annual Report 2025',
         href: '/documents/yearly_reports/Annual_Report_2025.pdf',
         icon: 'fas fa-file-alt',

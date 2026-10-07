@@ -19,7 +19,8 @@ export const FOOTER_BRAND = {
  * (same flow as the header Volunteer CTA).
  */
 export const FOOTER_QUICK_LINKS = [
-  { key: 'about', label: 'About Us', path: '/team' },
+  // Hidden for now (team page) — set hidden: false (or remove the flag) to restore.
+  { key: 'about', label: 'About Us', path: '/team', hidden: true },
   { key: 'activities', label: 'Our Activities', path: '/whatwedo' },
   { key: 'volunteer', label: 'Volunteer', action: 'volunteer' },
   { key: 'donate', label: 'Donate', path: '/contribute' },

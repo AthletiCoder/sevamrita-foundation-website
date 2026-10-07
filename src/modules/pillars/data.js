@@ -29,7 +29,7 @@ export const PILLARS = [
       `The initiative undertaken by the NGO in underprivileged schools stands as a vital instrument of social upliftment, offering comprehensive support that extends well beyond conventional education. The programme delivers high-quality instruction within a structured, well-rounded curriculum, guided by dedicated educators committed to fostering both the intellectual and emotional development of each child.`,
       `In addressing fundamental needs, the schools provide regular mid-day meals, thereby ensuring that students receive adequate nutrition—an essential component for effective learning and overall well-being. Through Annamrita, our goal is to support these schools in mid-day meals as well.`,
     ],
-    imgSrc: IMG('Shikshamrita.jpg'),
+    imgSrc: IMG('Sikshamrita.jpg'),
     alt: 'Shikshamrita',
   },
   {
