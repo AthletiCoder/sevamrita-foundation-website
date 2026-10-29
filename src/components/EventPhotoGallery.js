@@ -1,46 +1,9 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { GALLERY_SECTIONS } from '../modules/eventsGallery';
+import React, { useEffect, useState, useCallback } from 'react';
+import { GALLERY_SECTIONS, buildHallSlots } from '../modules/eventsGallery';
 import './CSS/EventPhotoGallery.css';
 
 function EventPhotoGallery() {
-  const rootRef = useRef(null);
-  const navRef = useRef(null);
-  const sectionRefs = useRef([]);
   const [lightbox, setLightbox] = useState(null);
-  const [activeKey, setActiveKey] = useState(GALLERY_SECTIONS[0]?.key ?? '');
-
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return undefined;
-
-    let cancelled = false;
-    let cleanupScroll = () => {};
-    let cleanupNav = () => {};
-
-    Promise.all([
-      import('../modules/eventsGallery/galleryScroll'),
-      import('../modules/eventsGallery/galleryNav'),
-    ])
-      .then(([{ initGalleryScroll }, { initGalleryNav }]) => {
-        if (cancelled) return;
-        cleanupScroll = initGalleryScroll(root);
-        cleanupNav = initGalleryNav({
-          root,
-          nav: navRef.current,
-          sections: sectionRefs.current.filter(Boolean),
-          onActiveChange: setActiveKey,
-        });
-      })
-      .catch((error) => {
-        console.error('Failed to init gallery animations:', error);
-      });
-
-    return () => {
-      cancelled = true;
-      cleanupScroll();
-      cleanupNav();
-    };
-  }, []);
 
   useEffect(() => {
     if (!lightbox) return undefined;
@@ -51,64 +14,25 @@ function EventPhotoGallery() {
     return () => window.removeEventListener('keydown', onKey);
   }, [lightbox]);
 
-  useEffect(() => {
-    const activeBtn = navRef.current?.querySelector(`[data-nav-key="${activeKey}"]`);
-    activeBtn?.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
-  }, [activeKey]);
-
   const openLightbox = useCallback((image, sectionTitle) => {
     setLightbox({ ...image, sectionTitle });
-  }, []);
-
-  const scrollToSection = useCallback((key) => {
-    const el = document.getElementById(`gallery-${key}`);
-    if (!el) return;
-    setActiveKey(key);
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
 
   return (
     <section
       id="gallery"
       className="event-gallery"
-      ref={rootRef}
       aria-labelledby="event-gallery-title"
     >
       <div className="container-custom">
         <header className="event-gallery__intro">
-          <h2 id="event-gallery-title" className="section-title section-title-left">
+          <h2 id="event-gallery-title" className="section-title">
             <i className="fas fa-images" aria-hidden="true" /> Photo Gallery
           </h2>
           <p className="section-description">
-            Moments from our programs — scroll to explore each initiative.
+            Browse moments from our events — hover to pause, click to enlarge.
           </p>
         </header>
-      </div>
-
-      <div className="event-gallery__nav-wrap">
-        <nav ref={navRef} className="event-gallery__nav" aria-label="Gallery sections">
-          {GALLERY_SECTIONS.map((section) => (
-            <button
-              key={section.key}
-              type="button"
-              data-nav-key={section.key}
-              className={`event-gallery__nav-link${activeKey === section.key ? ' is-active' : ''}`}
-              onClick={() => scrollToSection(section.key)}
-              aria-current={activeKey === section.key ? 'true' : undefined}
-            >
-              <span className="event-gallery__nav-label">
-                <i className={section.icon} aria-hidden="true" />
-                {section.title}
-              </span>
-              <span className="event-gallery__nav-track" aria-hidden="true">
-                <span
-                  className="event-gallery__nav-progress"
-                  data-nav-progress={section.key}
-                />
-              </span>
-            </button>
-          ))}
-        </nav>
       </div>
 
       {GALLERY_SECTIONS.map((section, index) => (
@@ -116,37 +40,29 @@ function EventPhotoGallery() {
           key={section.key}
           id={`gallery-${section.key}`}
           className={`event-gallery__section${index % 2 === 1 ? ' event-gallery__section--alt' : ''}`}
-          data-gallery-section={section.key}
-          ref={(el) => {
-            sectionRefs.current[index] = el;
-          }}
         >
           <div className="container-custom">
-            <div className="event-gallery__heading" data-gallery-heading>
+            <div className="event-gallery__heading">
               <h3>
                 <i className={section.icon} aria-hidden="true" />
                 {section.title}
               </h3>
               <p>{section.description}</p>
             </div>
-
-            <div className="event-gallery__grid">
-              {section.images.map((image, imgIndex) => (
-                <button
-                  key={image.src}
-                  type="button"
-                  className={`event-gallery__tile event-gallery__tile--${(imgIndex % 5) + 1}`}
-                  data-gallery-tile
-                  onClick={() => openLightbox(image, section.title)}
-                  aria-label={`View ${section.title} photo ${imgIndex + 1}`}
-                >
-                  <span className="event-gallery__media">
-                    <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
-                  </span>
-                </button>
-              ))}
-            </div>
           </div>
+
+          {section.images.length > 0 ? (
+            <MarqueeStrip
+              images={buildHallSlots(section.images)}
+              direction={index % 2 === 0 ? 'left' : 'right'}
+              sectionTitle={section.title}
+              onImageClick={openLightbox}
+            />
+          ) : (
+            <div className="container-custom">
+              <p className="event-gallery__empty">Photos coming soon.</p>
+            </div>
+          )}
         </div>
       ))}
 
@@ -174,6 +90,79 @@ function EventPhotoGallery() {
         </div>
       )}
     </section>
+  );
+}
+
+/* ─── Marquee strip: infinite loop, pauses on hover ─── */
+
+const ensureMinItems = (items, minCount = 10) => {
+  if (!items || items.length === 0) return [];
+  let result = [...items];
+  while (result.length < minCount) {
+    result = [...result, ...items];
+  }
+  return result;
+};
+
+function MarqueeStrip({ images, direction, sectionTitle, onImageClick }) {
+  const displayItems = ensureMinItems(images, 10);
+  if (displayItems.length === 0) return null;
+
+  const duration = `${Math.max(25, displayItems.length * 3.5)}s`;
+
+  return (
+    <div
+      className="event-gallery__marquee"
+      aria-label={`${sectionTitle} photo gallery`}
+    >
+      <div className={`event-gallery__marquee-track event-gallery__marquee-track--${direction}`}>
+        <div
+          className="event-gallery__marquee-group"
+          style={{ animationDuration: duration }}
+        >
+          {displayItems.map((image, imgIndex) => (
+            <button
+              key={`${image.key || image.src || imgIndex}-a-${imgIndex}`}
+              type="button"
+              className="event-gallery__marquee-item"
+              onClick={() => onImageClick(image, sectionTitle)}
+              aria-label={`View ${sectionTitle} photo ${(imgIndex % images.length) + 1}`}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                loading="eager"
+                decoding="async"
+                draggable={false}
+              />
+            </button>
+          ))}
+        </div>
+        <div
+          className="event-gallery__marquee-group"
+          style={{ animationDuration: duration }}
+          aria-hidden="true"
+        >
+          {displayItems.map((image, imgIndex) => (
+            <button
+              key={`${image.key || image.src || imgIndex}-b-${imgIndex}`}
+              type="button"
+              tabIndex={-1}
+              className="event-gallery__marquee-item"
+              onClick={() => onImageClick(image, sectionTitle)}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                loading="eager"
+                decoding="async"
+                draggable={false}
+              />
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 

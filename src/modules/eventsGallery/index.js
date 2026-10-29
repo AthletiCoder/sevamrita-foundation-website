@@ -5,6 +5,7 @@ import {
   SOCIAL_ROTATE_MS,
   IN_NEWS_IMAGES,
 } from './data';
+import { buildHallSlots } from './hallImages';
 
 export {
   GALLERY_SECTIONS,
@@ -12,6 +13,7 @@ export {
   PLATFORM_META,
   SOCIAL_ROTATE_MS,
   IN_NEWS_IMAGES,
+  buildHallSlots,
 };
 
 /** Group social posts by platform, preserving list order. */

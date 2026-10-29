@@ -1,19 +1,18 @@
 /**
  * Events page — photo gallery + social presence.
  *
- * Gallery: drop files as 1.jpeg, 2.jpeg, … under
- * public/images/gallery/<Folder>/ and set `count` below.
+ * Gallery: drop .jpg / .jpeg / .webp under
+ * public/images/gallery/<Folder>/ — filenames are auto-discovered
+ * (see scripts/generate-gallery-manifest.js, runs on start/build).
  *
  * Social posts: add platform, title, href, and embed src (or tweet fields).
  * Posts rotate every SOCIAL_ROTATE_MS.
  */
 
-/** Build numbered gallery images: 1.jpeg … count.jpeg */
-const gallery = (folder, count) =>
-  Array.from({ length: count }, (_, i) => ({
-    src: `/images/gallery/${folder}/${i + 1}.jpeg`,
-    alt: `${folder} event photo ${i + 1}`,
-  }));
+import { GALLERY_MANIFEST } from './galleryManifest';
+
+/** Images for a gallery folder (from generated manifest). */
+const gallery = (folder) => GALLERY_MANIFEST[folder] ?? [];
 
 export const GALLERY_SECTIONS = [
   {
@@ -21,42 +20,48 @@ export const GALLERY_SECTIONS = [
     title: 'Shikshamrita',
     icon: 'fas fa-graduation-cap',
     description: 'Education support in underprivileged schools.',
-    images: gallery('Shikshamrita', 13),
+    folder: 'Shikshamrita',
+    images: gallery('Shikshamrita'),
   },
   {
     key: 'annamrita',
     title: 'Annamrita',
     icon: 'fas fa-utensils',
     description: 'Nourishing communities through food drives and meal support.',
-    images: gallery('Annamrita', 8),
+    folder: 'Annamrita',
+    images: gallery('Annamrita'),
   },
   {
     key: 'charitamrita',
     title: 'Charitamrita',
     icon: 'fas fa-hands-helping',
     description: 'Youth empowerment, skills, and character-building programs.',
-    images: gallery('Charitamrita', 7),
+    folder: 'Charitamrita',
+    images: gallery('Charitamrita'),
   },
   {
     key: 'dharamrita',
     title: 'Dharamrita',
     icon: 'fas fa-leaf',
     description: 'Environment protection through plantation and eco-friendly practices.',
-    images: gallery('Dharamrita', 10),
+    folder: 'Dharamrita',
+    images: gallery('Dharamrita'),
   },
   {
     key: 'gramamrita',
     title: 'Gramamrita',
     icon: 'fas fa-home',
     description: 'Rural and tribal empowerment through education and community support.',
-    images: gallery('Gramamrita', 16),
+    folder: 'Gramamrita',
+    images: gallery('Gramamrita'),
   },
   {
     key: 'arogyamrita',
     title: 'Arogyamrita',
     icon: 'fas fa-heartbeat',
     description: 'Healthcare, hygiene, and community wellbeing.',
-    images: gallery('Arogyamrita', 6),
+    folder: 'Arogyamrita',
+    images: gallery('Arogyamrita'),
   },
 ];
 

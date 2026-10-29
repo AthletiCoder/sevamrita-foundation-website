@@ -29,6 +29,7 @@ const EventsGallery = lazy(() => import('./components/EventsGallery'));
 const Resources = lazy(() => import('./components/Resources'));
 const TestimonialsPage = lazy(() => import('./components/TestimonialsPage'));
 const DeAddictionPage = lazy(() => import('./components/de-addiction/DeAddictionPage'));
+const SevaSmriti = lazy(() => import('./components/SevaSmriti'));
 
 // Dashboard components (to be created)
 const Dashboard = lazy(() => import('./components/dashboards/Dashboard'));
@@ -74,6 +75,7 @@ function AppShell() {
           {/* Team temporarily hidden — restore <Team /> when ready. */}
           <Route path="/team" element={<Navigate to="/" replace />} />
           <Route path="/testimonials" element={<TestimonialsPage />} />
+          <Route path="/seva-smriti" element={<SevaSmriti />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/contact" element={<Contact />} />
 

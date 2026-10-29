@@ -38,7 +38,11 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
+    "generate:gallery": "node scripts/generate-gallery-manifest.js",
+    "generate:smriti": "node scripts/generate-smriti-manifest.js",
+    "prestart": "pnpm run generate:gallery && pnpm run generate:smriti",
     "start": "react-scripts start",
+    "prebuild": "pnpm run generate:gallery && pnpm run generate:smriti",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

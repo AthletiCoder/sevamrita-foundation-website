@@ -4,7 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Scroll-driven zoom / reveal for gallery sections and image tiles.
+ * Scroll-driven reveal for gallery section headings.
+ * Panorama strips handle their own scrub motion separately.
  * @returns {() => void} cleanup
  */
 export function initGalleryScroll(root) {
@@ -15,66 +16,26 @@ export function initGalleryScroll(root) {
   ).matches;
 
   const ctx = gsap.context(() => {
-    const sections = root.querySelectorAll('[data-gallery-section]');
-    const tiles = root.querySelectorAll('[data-gallery-tile]');
+    const headings = root.querySelectorAll('[data-gallery-heading]');
 
     if (prefersReducedMotion) {
-      gsap.set([sections, tiles], { clearProps: 'all', opacity: 1 });
+      gsap.set(headings, { clearProps: 'all', opacity: 1 });
       return;
     }
 
-    sections.forEach((section) => {
-      const heading = section.querySelector('[data-gallery-heading]');
-      if (heading) {
-        gsap.fromTo(
-          heading,
-          { opacity: 0, y: 36 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 82%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        );
-      }
-    });
-
-    tiles.forEach((tile) => {
-      const media = tile.querySelector('img');
-      if (!media) return;
-
+    headings.forEach((heading) => {
       gsap.fromTo(
-        tile,
-        { autoAlpha: 0, y: 48 },
+        heading,
+        { opacity: 0, y: 28 },
         {
-          autoAlpha: 1,
+          opacity: 1,
           y: 0,
-          duration: 0.75,
-          ease: 'power2.out',
+          duration: 0.7,
+          ease: 'power3.out',
           scrollTrigger: {
-            trigger: tile,
+            trigger: heading,
             start: 'top 88%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
-
-      gsap.fromTo(
-        media,
-        { scale: 1.18 },
-        {
-          scale: 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: tile,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.6,
+            toggleActions: 'play none none reverse',
           },
         }
       );

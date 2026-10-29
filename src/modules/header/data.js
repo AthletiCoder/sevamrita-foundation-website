@@ -41,6 +41,7 @@ export const NAV_ITEMS = [
         ],
       },
       { key: 'testimonials', label: 'Testimonials', path: '/testimonials', icon: 'fas fa-comment-dots' },
+      { key: 'seva-smriti', label: 'Seva Smriti', path: '/seva-smriti', icon: 'fas fa-gift' },
     ],
   },
   {
@@ -120,6 +121,7 @@ export const HEADER_ACTIONS_ALWAYS_VISIBLE_ROUTES = [
   '/resources',
   '/contact',
   '/de-addiction',
+  '/seva-smriti',
 ];
 
 export const EMPTY_VISIBLE_ACTIONS = {

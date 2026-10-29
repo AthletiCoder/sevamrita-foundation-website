@@ -6,12 +6,9 @@
 }
 
 .events-subnav {
-    position: sticky;
-    top: 72px;
-    z-index: 35;
+    position: relative;
+    z-index: 1;
     background: color-mix(in srgb, var(--color-background) 94%, transparent);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid color-mix(in srgb, var(--color-text-primary) 8%, transparent);
 }
 
@@ -55,17 +52,13 @@
 
 #social-media,
 #news {
-    scroll-margin-top: 8.5rem;
+    scroll-margin-top: 6rem;
 }
 
 @media (max-width: 991px) {
-    .events-subnav {
-        top: 68px;
-    }
-
     #social-media,
     #news {
-        scroll-margin-top: 8rem;
+        scroll-margin-top: 6rem;
     }
 }
 
